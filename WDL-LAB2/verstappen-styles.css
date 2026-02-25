@@ -1,453 +1,405 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Max Verstappen - Three-time World Champion Tribute">
-    <meta name="author" content="Formula 1 Tribute">
-    <meta name="theme-color" content="#0600ef">
-    <title>Max Verstappen | Unstoppable Champion</title>
-    
-    <!-- Preconnect to font services -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Custom fonts - Racing themed -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Russo+One&display=swap" rel="stylesheet">
-    
-    <!-- Main stylesheet -->
-    <link rel="stylesheet" href="verstappen-styles.css">
-</head>
-<body>
-<!-- Hero Section with Video -->
-<section class="hero">
-  <div class="hero-video-wrapper">
-    <iframe
-      class="hero-video"
-      src="https://www.youtube.com/embed/o4QXiKLv9yo?autoplay=1&mute=1&loop=1&playlist=o4QXiKLv9yo&controls=0&showinfo=0&modestbranding=1"
-      title="Max Verstappen Hero Video"
-      frameborder="0"
-      allow="autoplay; fullscreen"
-      allowfullscreen>
-    </iframe>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <div class="hero-overlay"></div>
-  </div>
+:root {
+  --blue: #0600ef;
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --off: #f7f7f7;
+  --gray: #999;
+  --light-gray: #e8e8e8;
+  --border: 1px solid #e0e0e0;
+}
 
-  <!-- Optional Content -->
-  <div class="hero-content">
-    <h1>MAX VERSTAPPEN</h1>
-    <p>Formula 1 World Champion</p>
-  </div>
-</section>
+html { scroll-behavior: smooth; }
 
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--black);
+  font-size: 15px;
+  line-height: 1.6;
+}
 
+/* ── FONTS ── */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
 
-        
-        <div class="hero-content">
-            <div class="hero-number">33</div>
-            <h1 class="hero-title">
-                <span class="hero-title-main">MAX VERSTAPPEN</span>
-                <span class="hero-title-sub">SIMPLY LOVELY</span>
-            </h1>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">World Championships</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number">60+</span>
-                    <span class="stat-label">Race Wins</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number">100+</span>
-                    <span class="stat-label">Podiums</span>
-                </div>
-            </div>
-            <div class="hero-cta">
-                <a href="#tribute" class="cta-button">Explore Legacy</a>
-                <a href="#controls" class="cta-button cta-secondary">Fan Zone</a>
-            </div>
-        </div>
-        
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 60px;
+  height: 56px;
+  background: var(--white);
+  border-bottom: var(--border);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 3px; color: var(--blue);
+}
+.nav-links { display: flex; gap: 36px; }
+.nav-links a {
+  text-decoration: none; color: var(--gray);
+  font-size: 12px; font-weight: 500; letter-spacing: 1px;
+  text-transform: uppercase; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--black); }
 
-    <!-- Timeline Section -->
-    <section class="timeline-section" id="tribute">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-accent">Championship</span>
-                Journey
-            </h2>
-            
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">2015</div>
-                    <div class="timeline-content">
-                        <h3>The Beginning</h3>
-                        <p>Youngest F1 driver ever at 17 years old, debuting with Toro Rosso</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2016</div>
-                    <div class="timeline-content">
-                        <h3>First Victory</h3>
-                        <p>Youngest race winner in F1 history at Spanish GP with Red Bull Racing</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2021</div>
-                    <div class="timeline-content">
-                        <h3>First Championship</h3>
-                        <p>Dramatic title win in Abu Dhabi - becoming World Champion</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2022</div>
-                    <div class="timeline-content">
-                        <h3>Domination Era</h3>
-                        <p>15 wins in a single season - Second World Championship</p>
-                    </div>
-                </div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-year">2023</div>
-                    <div class="timeline-content">
-                        <h3>Record Breaking</h3>
-                        <p>19 wins, 10 consecutive victories - Third World Championship</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+/* ── HERO ── */
+.hero {
+  position: relative;
+  margin-top: 56px;
+  height: calc(100vh - 56px);
+  overflow: hidden;
+  background: #111;
+}
+.hero iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  scale: 1.15;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.78) 38%, rgba(0,0,0,0.15));
+}
+.hero-content {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 0 80px;
+  max-width: 660px;
+}
+.hero-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(140px, 20vw, 260px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+  position: absolute; right: 40px; bottom: 20px;
+  pointer-events: none; user-select: none;
+}
+.hero-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 4px;
+  color: var(--blue); text-transform: uppercase; margin-bottom: 16px;
+}
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 8vw, 100px);
+  line-height: 1; color: #fff; letter-spacing: 3px;
+}
+.hero-tagline {
+  font-size: 13px; color: rgba(255,255,255,0.45);
+  margin-top: 14px; letter-spacing: 3px; text-transform: uppercase;
+}
+.hero-stats {
+  display: flex; gap: 44px;
+  margin-top: 48px; padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+.hero-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px; color: #fff; line-height: 1;
+}
+.hero-stat-label {
+  font-size: 10px; color: rgba(255,255,255,0.35);
+  text-transform: uppercase; letter-spacing: 1.5px; margin-top: 4px;
+}
+.hero-cta { display: flex; gap: 12px; margin-top: 40px; }
+.btn-hero {
+  text-decoration: none; display: inline-block;
+  padding: 13px 30px; font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase; transition: all 0.2s;
+}
+.btn-hero-primary { background: var(--blue); color: #fff; }
+.btn-hero-primary:hover { background: #0300c4; }
+.btn-hero-ghost { border: 1px solid rgba(255,255,255,0.3); color: #fff; }
+.btn-hero-ghost:hover { border-color: rgba(255,255,255,0.7); }
 
-    <!-- Control Panel Section -->
-    <section class="controls-section" id="controls">
-        <div class="container">
-            <h2 class="section-title">
-                <span class="title-accent">Fan</span>
-                Control Center
-            </h2>
+/* ── SHARED SECTION ── */
+section { padding: 100px 80px; }
+.section-label {
+  font-size: 10px; font-weight: 500; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 10px;
+}
+.section-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 5vw, 64px);
+  letter-spacing: 2px; color: var(--black); line-height: 1.1;
+}
 
-            <!-- Control Grid -->
-            <div class="control-grid">
-                
-                <!-- Panel 1: Fan Registration -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3 class="panel-title">Fan Registration</h3>
-                        <span class="panel-status">Live</span>
-                    </div>
-                    
-                    <div class="panel-content">
-                        <div class="control-group">
-                            <label for="fan-name">Full Name</label>
-                            <input type="text" id="fan-name" placeholder="Your name" autocomplete="name">
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="fan-email">Email</label>
-                            <input type="email" id="fan-email" placeholder="fan@formula1.com" autocomplete="email">
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="fan-country">Country</label>
-                            <input type="text" id="fan-country" placeholder="Netherlands" autocomplete="country">
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="fan-since">Fan Since</label>
-                            <input type="date" id="fan-since" value="2015-03-15">
-                        </div>
-                    </div>
-                </div>
+/* ── TIMELINE ── */
+.timeline-section { background: var(--white); }
+.timeline-header { margin-bottom: 64px; }
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: var(--border);
+  border-left: var(--border);
+}
+.tl-item {
+  padding: 36px 28px;
+  border-right: var(--border);
+  border-bottom: var(--border);
+  position: relative;
+}
+.tl-item::before {
+  content: '';
+  position: absolute; top: -5px; left: 28px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--blue);
+}
+.tl-year {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px; color: var(--black); line-height: 1;
+}
+.tl-title {
+  font-size: 11px; font-weight: 500; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--black);
+  margin: 16px 0 8px;
+}
+.tl-desc {
+  font-size: 13px; color: var(--gray); line-height: 1.65;
+}
 
-                <!-- Panel 2: Favorite Moments -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3 class="panel-title">Favorite Moments</h3>
-                        <span class="panel-status">Active</span>
-                    </div>
-                    
-                    <div class="panel-content">
-                        <div class="control-group">
-                            <label for="best-race">Best Race</label>
-                            <select id="best-race">
-                                <option value="">Select your favorite...</option>
-                                <option value="spain-2016">Spain 2016 - First Win</option>
-                                <option value="abu-dhabi-2021">Abu Dhabi 2021 - First Title</option>
-                                <option value="brazil-2022">Brazil 2022 - P17 to P1</option>
-                                <option value="monza-2022">Monza 2022 - Tifosi Silence</option>
-                            </select>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="overtake">Best Overtake</label>
-                            <select id="overtake">
-                                <option value="">Choose epic moment...</option>
-                                <option value="leclerc-austria">Leclerc - Austria 2019</option>
-                                <option value="hamilton-brazil">Hamilton - Brazil 2019</option>
-                                <option value="sainz-spa">Sainz - Spa 2023</option>
-                            </select>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="message">Why Max is #1</label>
-                            <textarea id="message" rows="4" placeholder="Share your thoughts..."></textarea>
-                        </div>
-                    </div>
-                </div>
+/* ── FAN ZONE ── */
+.controls-section { background: var(--off); }
+.controls-header { margin-bottom: 56px; }
 
-                <!-- Panel 3: Performance Ratings -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3 class="panel-title">Rate Performance</h3>
-                        <span class="panel-status">Racing</span>
-                    </div>
-                    
-                    <div class="panel-content">
-                        <div class="control-group">
-                            <label for="speed">Speed Rating</label>
-                            <input type="range" id="speed" min="0" max="100" value="100" class="slider">
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="overtaking">Overtaking</label>
-                            <input type="range" id="overtaking" min="0" max="100" value="98" class="slider">
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="racecraft">Racecraft</label>
-                            <input type="range" id="racecraft" min="0" max="100" value="99" class="slider">
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="consistency">Consistency</label>
-                            <input type="range" id="consistency" min="0" max="100" value="97" class="slider">
-                        </div>
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--light-gray);
+  border: 1px solid var(--light-gray);
+}
+.panel {
+  background: var(--white);
+  padding: 36px;
+}
+.panel-head {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 28px; padding-bottom: 20px;
+  border-bottom: var(--border);
+}
+.panel-title {
+  font-size: 10px; font-weight: 500; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--black);
+}
+.panel-badge {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue); border: 1px solid var(--blue);
+  padding: 3px 8px;
+}
 
-                        <div class="control-group">
-                            <label for="podiums">Predicted 2026 Wins</label>
-                            <input type="number" id="podiums" min="0" max="24" value="18" placeholder="0">
-                        </div>
-                    </div>
-                </div>
+/* ── FORM ELEMENTS ── */
+.ctrl-group { margin-bottom: 20px; }
+.ctrl-group:last-child { margin-bottom: 0; }
+.ctrl-group > label, .ctrl-group > span.lbl {
+  display: block; font-size: 10px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gray); margin-bottom: 8px;
+}
+.ctrl-group input[type="text"],
+.ctrl-group input[type="email"],
+.ctrl-group input[type="date"],
+.ctrl-group input[type="number"],
+.ctrl-group input[type="time"],
+.ctrl-group input[type="search"],
+.ctrl-group select,
+.ctrl-group textarea {
+  width: 100%;
+  background: var(--white);
+  border: 1px solid var(--light-gray);
+  color: var(--black);
+  padding: 10px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; outline: none;
+  transition: border-color 0.2s;
+  appearance: none; -webkit-appearance: none;
+  border-radius: 0;
+}
+.ctrl-group input:focus,
+.ctrl-group select:focus,
+.ctrl-group textarea:focus { border-color: var(--blue); }
+.ctrl-group input::placeholder,
+.ctrl-group textarea::placeholder { color: #ccc; }
+.ctrl-group textarea { resize: vertical; min-height: 84px; }
+.ctrl-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23999' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 
-                <!-- Panel 4: Fan Preferences -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3 class="panel-title">Preferences</h3>
-                        <span class="panel-status">Set</span>
-                    </div>
-                    
-                    <div class="panel-content">
-                        <div class="toggle-group">
-                            <label class="toggle-label">
-                                <input type="checkbox" class="toggle-input" checked>
-                                <span class="toggle-switch"></span>
-                                <span class="toggle-text">Race Notifications</span>
-                            </label>
-                        </div>
-                        
-                        <div class="toggle-group">
-                            <label class="toggle-label">
-                                <input type="checkbox" class="toggle-input" checked>
-                                <span class="toggle-switch"></span>
-                                <span class="toggle-text">Live Timing Updates</span>
-                            </label>
-                        </div>
-                        
-                        <div class="toggle-group">
-                            <label class="toggle-label">
-                                <input type="checkbox" class="toggle-input">
-                                <span class="toggle-switch"></span>
-                                <span class="toggle-text">Podium Alerts</span>
-                            </label>
-                        </div>
+/* Range slider */
+.ctrl-group input[type="range"] {
+  -webkit-appearance: none; appearance: none;
+  width: 100%; height: 1px;
+  background: var(--light-gray);
+  border: none; padding: 0; cursor: pointer; outline: none;
+}
+.ctrl-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px;
+  border-radius: 50%; background: var(--blue); cursor: pointer;
+}
+.slider-val {
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: #ccc; margin-top: 6px;
+}
 
-                        <div class="toggle-group">
-                            <label class="toggle-label">
-                                <input type="checkbox" class="toggle-input" checked>
-                                <span class="toggle-switch"></span>
-                                <span class="toggle-text">Championship Updates</span>
-                            </label>
-                        </div>
-                        
-                        <div class="checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="checkbox-input" checked>
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-text">Email Newsletter</span>
-                            </label>
-                            
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="checkbox-input" checked>
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-text">Exclusive Content</span>
-                            </label>
-                            
-                            <label class="checkbox-label">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-text">Merchandise Deals</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
+/* Progress */
+.ctrl-group progress {
+  width: 100%; height: 2px;
+  -webkit-appearance: none; appearance: none; border: none;
+}
+.ctrl-group progress::-webkit-progress-bar { background: var(--light-gray); }
+.ctrl-group progress::-webkit-progress-value { background: var(--blue); }
+.ctrl-group progress::-moz-progress-bar { background: var(--blue); }
 
-                <!-- Panel 5: Team Radio -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3 class="panel-title">Team Radio</h3>
-                        <span class="panel-status">ON AIR</span>
-                    </div>
-                    
-                    <div class="panel-content">
-                        <div class="control-group">
-                            <label>Favorite Radio Message</label>
-                            <div class="radio-group">
-                                <label class="radio-label">
-                                    <input type="radio" name="radio-msg" value="simply-lovely" class="radio-input" checked>
-                                    <span class="radio-custom"></span>
-                                    <span class="radio-text">"Simply Lovely"</span>
-                                </label>
-                                
-                                <label class="radio-label">
-                                    <input type="radio" name="radio-msg" value="yes-boys" class="radio-input">
-                                    <span class="radio-custom"></span>
-                                    <span class="radio-text">"YES BOYS!"</span>
-                                </label>
-                                
-                                <label class="radio-label">
-                                    <input type="radio" name="radio-msg" value="love-it" class="radio-input">
-                                    <span class="radio-custom"></span>
-                                    <span class="radio-text">"I love it!"</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="quali-time">Qualifying Time (Q3)</label>
-                            <input type="time" id="quali-time" value="13:00">
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="race-time">Race Start Time</label>
-                            <input type="time" id="race-time" value="15:00">
-                        </div>
-                    </div>
-                </div>
+/* Toggle switch */
+.toggle-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 11px 0; border-bottom: 1px solid var(--light-gray);
+}
+.toggle-row:last-of-type { border-bottom: none; }
+.toggle-name { font-size: 13px; color: var(--black); }
+.toggle-wrap { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
+.toggle-wrap input { opacity: 0; width: 0; height: 0; position: absolute; }
+.toggle-track {
+  position: absolute; inset: 0;
+  background: var(--light-gray);
+  border-radius: 20px; cursor: pointer; transition: background 0.2s;
+}
+.toggle-track::after {
+  content: ''; position: absolute;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #bbb; top: 3px; left: 3px; transition: all 0.2s;
+}
+.toggle-wrap input:checked + .toggle-track { background: var(--blue); }
+.toggle-wrap input:checked + .toggle-track::after { left: 19px; background: #fff; }
 
-                <!-- Panel 6: Media & Colors -->
-                <div class="panel">
-                    <div class="panel-header">
-                        <h3 class="panel-title">Customization</h3>
-                        <span class="panel-status">Custom</span>
-                    </div>
-                    
-                    <div class="panel-content">
-                        <div class="control-group">
-                            <label for="upload-photo">Upload Fan Photo</label>
-                            <div class="file-upload-wrapper">
-                                <input type="file" id="upload-photo" class="file-input" accept="image/*">
-                                <label for="upload-photo" class="file-label">
-                                    <span class="file-icon">🏁</span>
-                                    <span class="file-text">Upload your race day photo</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="theme-color">Theme Color</label>
-                            <div class="color-picker-wrapper">
-                                <input type="color" id="theme-color" value="#0600ef" class="color-input">
-                                <span class="color-label">#0600ef</span>
-                            </div>
-                        </div>
-                        
-                        <div class="control-group">
-                            <label for="search-stats">Search Stats</label>
-                            <div class="search-wrapper">
-                                <input type="search" id="search-stats" placeholder="Search race results...">
-                                <span class="search-icon">🔍</span>
-                            </div>
-                        </div>
+/* Checkboxes */
+.cb-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; cursor: pointer;
+}
+.cb-row input { display: none; }
+.cb-box {
+  width: 14px; height: 14px; border: 1px solid var(--light-gray);
+  flex-shrink: 0; position: relative; transition: all 0.2s;
+}
+.cb-row input:checked ~ .cb-box { background: var(--blue); border-color: var(--blue); }
+.cb-row input:checked ~ .cb-box::after {
+  content: ''; position: absolute;
+  left: 4px; top: 1px; width: 4px; height: 8px;
+  border: 1.5px solid #fff; border-left: none; border-top: none;
+  transform: rotate(45deg);
+}
+.cb-text { font-size: 13px; color: var(--black); }
 
-                        <div class="control-group">
-                            <label for="season-progress">2026 Season Progress</label>
-                            <progress id="season-progress" value="45" max="100"></progress>
-                        </div>
-                    </div>
-                </div>
+/* Radio */
+.radio-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 0; cursor: pointer;
+}
+.radio-row input { display: none; }
+.radio-circle {
+  width: 14px; height: 14px; border: 1px solid var(--light-gray);
+  border-radius: 50%; flex-shrink: 0; position: relative; transition: all 0.2s;
+}
+.radio-row input:checked ~ .radio-circle { border-color: var(--blue); }
+.radio-row input:checked ~ .radio-circle::after {
+  content: ''; position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 6px; height: 6px; border-radius: 50%; background: var(--blue);
+}
+.radio-text { font-size: 13px; color: var(--black); }
 
-            </div>
+/* File upload */
+.file-zone {
+  border: 1px dashed var(--light-gray);
+  padding: 22px; text-align: center; cursor: pointer;
+  transition: border-color 0.2s; display: block;
+}
+.file-zone:hover { border-color: var(--blue); }
+.file-zone input { display: none; }
+.file-zone-text { font-size: 12px; color: var(--gray); letter-spacing: 0.5px; }
 
-            <!-- Action Buttons -->
-            <div class="button-group">
-                <button class="btn btn-primary">
-                    <span class="btn-icon">🏆</span>
-                    <span>Submit</span>
-                </button>
-                
-                <button class="btn btn-secondary">
-                    <span class="btn-icon">↻</span>
-                    <span>Reset</span>
-                </button>
-                
-                <button class="btn btn-outline">
-                    <span class="btn-icon">💾</span>
-                    <span>Save Profile</span>
-                </button>
-                
-                <button class="btn btn-danger">
-                    <span class="btn-icon">×</span>
-                    <span>Clear</span>
-                </button>
-            </div>
+/* Color picker */
+.color-row { display: flex; align-items: center; gap: 12px; }
+.ctrl-group input[type="color"] {
+  width: 36px; height: 36px; padding: 2px;
+  border: 1px solid var(--light-gray); cursor: pointer;
+  background: none; outline: none;
+}
+.color-hex { font-size: 12px; color: var(--gray); font-family: monospace; }
 
-            <!-- Status Bar -->
-            <div class="status-bar">
-                <div class="status-item">
-                    <span class="status-dot status-success"></span>
-                    <span>Fan Connection Active</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">Next Race:</span>
-                    <span class="status-value">Bahrain GP</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">Fans Online:</span>
-                    <span class="status-value">33,333</span>
-                </div>
-                <div class="status-item">
-                    <span class="status-label">Championship:</span>
-                    <span class="status-value">Leader</span>
-                </div>
-            </div>
-        </div>
-    </section>
+/* ── ACTION ROW ── */
+.action-row {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-top: 48px; padding-top: 48px;
+  border-top: var(--border);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; border: none;
+  font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: #0300c4; }
+.btn-secondary { background: var(--white); color: var(--black); border: var(--border); }
+.btn-secondary:hover { border-color: var(--black); }
+.btn-outline { background: transparent; color: var(--gray); border: var(--border); }
+.btn-outline:hover { color: var(--black); border-color: var(--black); }
+.btn-danger { background: transparent; color: #c0392b; border: 1px solid rgba(192,57,43,0.25); }
+.btn-danger:hover { background: #c0392b; color: #fff; }
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-quote">
-                    <p>"I'm not here to finish second. I'm here to win."</p>
-                    <span>— Max Verstappen</span>
-                </div>
-                <div class="footer-stats">
-                    <span>#33 • Red Bull Racing • World Champion</span>
-                </div>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+/* ── STATUS BAR ── */
+.status-row {
+  display: flex; gap: 40px; align-items: center; flex-wrap: wrap;
+  margin-top: 28px; padding: 18px 24px;
+  border: var(--border); background: var(--white);
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+}
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #27ae60; display: inline-block; margin-right: 8px;
+}
+.status-active { color: #27ae60; }
+.status-item { color: var(--gray); }
+.status-item span { color: var(--black); margin-left: 6px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--white);
+  border-top: var(--border);
+  padding: 60px 80px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-quote {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 2px; color: var(--black);
+}
+.footer-quote span {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; color: var(--gray);
+  letter-spacing: 2px; display: block; margin-top: 8px;
+}
+.footer-meta {
+  font-size: 11px; color: var(--gray);
+  letter-spacing: 2px; text-transform: uppercase;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .timeline { grid-template-columns: repeat(3, 1fr); }
+  .panel-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 760px) {
+  section { padding: 60px 24px; }
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero-content { padding: 0 32px; max-width: 100%; }
+  .timeline { grid-template-columns: 1fr; }
+  .panel-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 24px; padding: 40px 24px; }
+  .action-row { flex-direction: column; }
+  .status-row { gap: 16px; }
+}
