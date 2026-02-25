@@ -1,0 +1,138 @@
+/* 1. Global Reset & Variables */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+:root {
+    --primary-color: #3498db;
+    --primary-hover: #2980b9;
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
+    --text-color: #333;
+    --bg-color: #f5f7fa;
+    --white: #ffffff;
+    --border-radius: 6px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px; /* Padding for mobile screens */
+}
+
+/* 2. Container & Layout */
+.container {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Responsive: grows up to 400px */
+    overflow: hidden;
+}
+
+.header {
+    background-color: var(--bg-color);
+    padding: 20px 40px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: center;
+}
+
+.header h2 {
+    margin: 0;
+    color: var(--text-color);
+}
+
+.header p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #777;
+}
+
+.form {
+    padding: 30px 40px;
+}
+
+/* 3. Form Controls */
+.form-control {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.form-control label {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.form-control input {
+    border: 2px solid #f0f0f0;
+    border-radius: var(--border-radius);
+    display: block;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 12px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.form-control input:focus {
+    outline: 0;
+    border-color: #aaa;
+}
+
+/* 4. Feedback States (Success/Error) */
+.form-control.success input {
+    border-color: var(--success-color);
+}
+
+.form-control.error input {
+    border-color: var(--error-color);
+    background-color: #fff6f6; /* Light red tint for error context */
+}
+
+.form-control small {
+    color: var(--error-color);
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    font-size: 12px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.form-control.error small {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* 5. Submit Button */
+button {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    color: var(--white);
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 12px;
+    margin-top: 25px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
