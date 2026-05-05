@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML/CSS Question Paper - Set 1 - Solutions</title>
+<style>
+    @page { size: A4; margin: 15mm; }
+    body { font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.4; color: #222; }
+    h1 { color: #1a3a6e; border-bottom: 3px solid #1a3a6e; padding-bottom: 6px; }
+    h2 { color: #1a3a6e; margin-top: 18px; background: #eef3fb; padding: 8px 12px; border-left: 5px solid #1a3a6e; page-break-after: avoid; }
+    h3 { color: #2c5aa0; margin-top: 14px; page-break-after: avoid; }
+    .intro { background: #fff8e1; border: 1px solid #f0c419; padding: 12px 16px; border-radius: 4px; margin: 12px 0; }
+    .intro b { color: #7a5c00; }
+    .template-box { background: #f6f8fa; border: 2px solid #555; padding: 10px 14px; border-radius: 4px; margin: 10px 0; font-family: 'Courier New', monospace; font-size: 10pt; white-space: pre-wrap; }
+    .question { page-break-inside: avoid; margin-top: 18px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; background: #fafafa; }
+    .qheader { background: #1a3a6e; color: white; padding: 6px 12px; font-weight: bold; font-size: 13pt; border-radius: 3px; }
+    .qdesc { padding: 6px 4px; font-style: italic; color: #444; }
+    .codebox { background: #f6f8fa; border: 1px solid #888; padding: 10px 12px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 9.5pt; white-space: pre-wrap; line-height: 1.35; word-wrap: break-word; }
+    /* GREEN HIGHLIGHT for the minimal change parts */
+    .change { background: #b8f5b8; color: #006400; font-weight: bold; padding: 1px 2px; border-radius: 2px; }
+    .note { background: #e7f4ff; border-left: 4px solid #2c5aa0; padding: 8px 12px; margin: 8px 0; font-size: 10pt; }
+    .note b { color: #1a3a6e; }
+    .legend { display: inline-block; background: #b8f5b8; color: #006400; padding: 2px 8px; border-radius: 3px; font-weight: bold; font-family: 'Courier New', monospace; }
+    .key { color: #c00; font-weight: bold; }
+    .preview-img { max-width: 90%; border: 1px solid #aaa; padding: 4px; background: white; margin: 6px 0; }
+    .small { font-size: 9pt; color: #666; }
+    .step { background: #fff; border: 1px solid #ccc; padding: 8px 12px; margin: 6px 0; border-radius: 3px; }
+    .step b { color: #1a3a6e; }
+    table.toc { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 10pt; }
+    table.toc td { padding: 4px 8px; border-bottom: 1px solid #eee; }
+    table.toc td:first-child { width: 60px; font-weight: bold; color: #1a3a6e; }
+</style>
+</head>
+<body>
+
+<h1>HTML / CSS Question Paper – Set 1<br><span style="font-size:14pt;color:#555;font-weight:normal;">Complete Solutions with Minimal-Change Approach</span></h1>
+
+<div class="intro">
+<b>How to use this guide (read this first!):</b><br>
+1. Every HTML page uses the <b>same standard template</b>. Once you copy this template, you do NOT change anything outside the body for any of these questions.<br>
+2. The parts <span class="legend">highlighted in green</span> are the ONLY parts you need to type / change for each question. Everything else stays the same.<br>
+3. Each question is <b>one single .html file</b>. Save it (e.g. <i>Q1.html</i>), then double-click to open in any browser (Chrome, Edge, Firefox).<br>
+4. There are no external files, no images, no linked CSS. Each file is fully self-contained and will work on its own.
+</div>
+
+<h2>The Standard HTML Template (memorize this once)</h2>
+
+<p>Every single answer in this paper follows this exact skeleton. The five lines below never change. You only fill in your code between <code>&lt;body&gt;</code> and <code>&lt;/body&gt;</code>.</p>
+
+<div class="template-box">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;!-- Your answer code goes here --&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+
+<div class="note">
+<b>Tags you will reuse a lot in this paper:</b><br>
+&bull; <code>&lt;ul&gt;</code> = unordered (bullet) list, <code>&lt;ol&gt;</code> = ordered (numbered) list, <code>&lt;li&gt;</code> = one list item<br>
+&bull; <code>&lt;table&gt;</code> with <code>&lt;tr&gt;</code> (row), <code>&lt;th&gt;</code> (header cell), <code>&lt;td&gt;</code> (data cell)<br>
+&bull; <code>rowspan="N"</code> makes a cell tall (covers N rows). <code>colspan="N"</code> makes a cell wide.<br>
+&bull; <code>type="I"</code> on <code>&lt;ol&gt;</code> &rarr; I, II, III &nbsp; | &nbsp; <code>type="i"</code> &rarr; i, ii, iii &nbsp; | &nbsp; <code>type="A"</code> &rarr; A, B, C &nbsp; | &nbsp; <code>type="a"</code> &rarr; a, b, c<br>
+&bull; <code>list-style-type:circle</code> &rarr; hollow circle bullets &nbsp; | &nbsp; <code>square</code> &rarr; square bullets
+</div>
+
+<div class="note">
+<b>How to test your code:</b> Open Notepad &rarr; paste the code &rarr; <i>File &rarr; Save As</i> &rarr; choose "All Files" &rarr; name it <code>Q1.html</code> (etc.) &rarr; double-click the saved file. It opens in your browser and shows the output.
+</div>
+
+<!-- ============== Q1 ============== -->
+<div class="question">
+<div class="qheader">Question 1 &mdash; Nested unordered list (Coffee / Tea / Milk)</div>
+<div class="qdesc">Output: a bulleted list with Coffee, Tea, Milk where Tea has two sub-bullets (hollow circles): Black Tea and Green Tea.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;ul&gt;
+        &lt;li&gt;&lt;b&gt;Coffee&lt;/b&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;b&gt;Tea&lt;/b&gt;
+            &lt;ul style="list-style-type:circle;"&gt;
+                &lt;li&gt;&lt;b&gt;Black Tea&lt;/b&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Green Tea&lt;/b&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;b&gt;Milk&lt;/b&gt;&lt;/li&gt;
+    &lt;/ul&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> A list inside another <code>&lt;li&gt;</code> creates the indented sub-list. The inner <code>&lt;ul&gt;</code> uses <code>list-style-type:circle</code> for the hollow bullets you see in the question.</div>
+</div>
+
+<!-- ============== Q2 ============== -->
+<div class="question">
+<div class="qheader">Question 2 &mdash; Table: Name / Class / School with rowspan & colspan</div>
+<div class="qdesc">Header "Name" spans 2 columns. Each student row uses rowspan=2 because the Class column has 2 stacked values (number + section).</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 2&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;table border="1" cellpadding="10" cellspacing="0"&gt;
+        &lt;tr&gt;
+            &lt;th colspan="2"&gt;Name&lt;/th&gt;
+            &lt;th&gt;Class&lt;/th&gt;
+            &lt;th&gt;School&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2"&gt;Mahima&lt;/td&gt;
+            &lt;td rowspan="2"&gt;Gupta&lt;/td&gt;
+            &lt;td&gt;11&lt;/td&gt;
+            &lt;td rowspan="2"&gt;MVM School&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;A&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2"&gt;Sri&lt;/td&gt;
+            &lt;td rowspan="2"&gt;Krishn&lt;/td&gt;
+            &lt;td&gt;3&lt;/td&gt;
+            &lt;td rowspan="2"&gt;LMS School&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;B&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2"&gt;Shivika&lt;/td&gt;
+            &lt;td rowspan="2"&gt;Goyal&lt;/td&gt;
+            &lt;td&gt;5&lt;/td&gt;
+            &lt;td rowspan="2"&gt;SCPM School&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;A&lt;/td&gt;&lt;/tr&gt;
+    &lt;/table&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> When a cell uses <code>rowspan="2"</code>, the next row must NOT include that cell again — it is already taken from above. That's why the rows with just <code>&lt;td&gt;A&lt;/td&gt;</code> have only one cell.</div>
+</div>
+
+<!-- ============== Q3 ============== -->
+<div class="question">
+<div class="qheader">Question 3 &mdash; Top Frame / Left Frame / Right Frame layout</div>
+<div class="qdesc">A dark-red top bar with orange text, and two orange panels (left + right) below it, all in one box.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 3&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;div style="border:3px solid orange; width:400px;"&gt;
+        &lt;div style="background:darkred; color:orange; text-align:center; padding:15px;
+                    font-weight:bold; font-size:22px; border-bottom:3px solid orange;"&gt;
+            Top Frame
+        &lt;/div&gt;
+        &lt;div style="display:flex;"&gt;
+            &lt;div style="background:orange; color:darkred; flex:1; padding:40px;
+                        text-align:center; font-weight:bold; font-size:20px;
+                        border-right:3px solid orange;"&gt;
+                Left Frame
+            &lt;/div&gt;
+            &lt;div style="background:orange; color:darkred; flex:1; padding:40px;
+                        text-align:center; font-weight:bold; font-size:20px;"&gt;
+                Right Frame
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Real <code>&lt;frameset&gt;</code> needs separate files for each frame. To keep this in ONE file we draw the same layout with <code>&lt;div&gt;</code> blocks. <code>display:flex</code> puts the Left and Right divs side-by-side.</div>
+</div>
+
+<!-- ============== Q4 ============== -->
+<div class="question">
+<div class="qheader">Question 4 &mdash; Coloured panel layout (Orange / Red / Green / Blue)</div>
+<div class="qdesc">Three columns: left has Orange (top) + Blue (bottom). Middle is Red full-height. Right has Green on top with red below it.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 4&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;div style="display:flex; width:500px; height:300px;"&gt;
+        &lt;div style="display:flex; flex-direction:column; flex:2;"&gt;
+            &lt;div style="background:#ff8c5a; color:white; flex:2;
+                        display:flex; align-items:center; justify-content:center;
+                        font-weight:bold; font-size:24px;"&gt;ORANGE&lt;/div&gt;
+            &lt;div style="background:blue; color:white; flex:1;
+                        display:flex; align-items:center; justify-content:center;
+                        font-weight:bold; font-size:24px;"&gt;BLUE&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div style="background:red; color:white; flex:1;
+                    display:flex; align-items:center; justify-content:center;
+                    font-weight:bold; font-size:24px;"&gt;RED&lt;/div&gt;
+        &lt;div style="display:flex; flex-direction:column; flex:1;"&gt;
+            &lt;div style="background:green; color:white; flex:1;
+                        display:flex; align-items:center; justify-content:center;
+                        font-weight:bold; font-size:24px;"&gt;GREEN&lt;/div&gt;
+            &lt;div style="background:red; flex:2;"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Outer flex = 3 columns side by side. Inner flex with <code>flex-direction:column</code> stacks 2 boxes vertically. The number after <code>flex:</code> controls the size ratio.</div>
+</div>
+
+<!-- ============== Q5 ============== -->
+<div class="question">
+<div class="qheader">Question 5 &mdash; Time Table (most complex table)</div>
+<div class="qdesc">Pink heading "Time Table". Green vertical "Hours" cell on the left. Yellow cells with subjects. Violet "LUNCH BREAK" row in the middle.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 5&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;table border="2" cellpadding="8" cellspacing="0"
+           style="background:yellow; border-color:green; font-weight:bold;"&gt;
+        &lt;tr style="background:pink;"&gt;
+            &lt;th colspan="8" style="font-size:22px;"&gt;Time Table&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr style="background:yellow;"&gt;
+            &lt;th rowspan="6" style="background:green; color:white; font-size:20px;"&gt;Hours&lt;/th&gt;
+            &lt;th&gt;&lt;/th&gt;
+            &lt;th&gt;Mon&lt;/th&gt;&lt;th&gt;Tue&lt;/th&gt;&lt;th&gt;wed&lt;/th&gt;
+            &lt;th&gt;Thur&lt;/th&gt;&lt;th&gt;Fri&lt;/th&gt;&lt;th&gt;Sat&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2"&gt;DBMS&lt;/td&gt;
+            &lt;td&gt;WT&lt;/td&gt;&lt;td&gt;OOAD&lt;/td&gt;&lt;td&gt;JP&lt;/td&gt;
+            &lt;td colspan="2"&gt;OR&lt;/td&gt;&lt;td&gt;COA&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;OR&lt;/td&gt;&lt;td&gt;WT&lt;/td&gt;
+            &lt;td colspan="2"&gt;COA&lt;/td&gt;
+            &lt;td&gt;OOAD&lt;/td&gt;&lt;td&gt;JP&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr style="background:violet;"&gt;
+            &lt;td colspan="7" style="text-align:center;"&gt;LUNCH BREAK&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;DBMS&lt;/td&gt;&lt;td&gt;WT&lt;/td&gt;&lt;td&gt;OOAD&lt;/td&gt;&lt;td&gt;JP&lt;/td&gt;
+            &lt;td colspan="2"&gt;OR&lt;/td&gt;&lt;td&gt;COA&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;DBMS&lt;/td&gt;&lt;td&gt;OR&lt;/td&gt;&lt;td&gt;WT&lt;/td&gt;
+            &lt;td colspan="2"&gt;COA&lt;/td&gt;
+            &lt;td&gt;OOAD&lt;/td&gt;&lt;td&gt;JP&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> "Hours" uses <code>rowspan="6"</code> to cover all 6 rows below the title. "LUNCH BREAK" only spans 7 columns (not 8) so it does NOT cover the "Hours" column.</div>
+</div>
+
+<!-- ============== Q6 ============== -->
+<div class="question">
+<div class="qheader">Question 6 &mdash; Six-frame resume layout</div>
+<div class="qdesc">Top wide orange frame, then 2 medium frames, then 3 smaller frames at the bottom — drawn as a 3-column table.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 6&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;table border="1" cellpadding="15" cellspacing="0" width="600"
+           style="border-collapse:collapse;"&gt;
+        &lt;tr&gt;
+            &lt;td colspan="3" style="background:#f4a261;"&gt;
+                &lt;b&gt;First Frame: Name and address&lt;/b&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2" style="background:#fde4d4;"&gt;
+                &lt;b&gt;Second frame&lt;/b&gt;&lt;br&gt;Bulleted list of qualifications
+            &lt;/td&gt;
+            &lt;td style="background:#fde4d4;"&gt;
+                &lt;b&gt;Third frame&lt;/b&gt;&lt;br&gt;Links to favourite sites
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="background:#fff3eb;"&gt;
+                &lt;b&gt;Fourth frame&lt;/b&gt;&lt;br&gt;Scrolling message
+            &lt;/td&gt;
+            &lt;td style="background:#fff3eb;"&gt;
+                &lt;b&gt;Fifth frame&lt;/b&gt;&lt;br&gt;Blinking reminders
+            &lt;/td&gt;
+            &lt;td style="background:#fff3eb;"&gt;
+                &lt;b&gt;Sixth frame&lt;/b&gt;&lt;br&gt;Image
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Three rows. Row 1 has 1 cell with <code>colspan="3"</code>. Row 2 has 2 cells (first cell <code>colspan="2"</code>). Row 3 has 3 normal cells.</div>
+</div>
+
+<!-- ============== Q7 ============== -->
+<div class="question">
+<div class="qheader">Question 7 &mdash; Triple-nested list (square &rarr; circle &rarr; Roman)</div>
+<div class="qdesc">Outermost bullet is a square, second level is hollow circle, deepest level is Roman numerals (I, II, III).</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 7&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;ul style="list-style-type:square;"&gt;
+        &lt;li&gt;&lt;b&gt;Maharashtra&lt;/b&gt;
+            &lt;ul style="list-style-type:circle;"&gt;
+                &lt;li&gt;&lt;b&gt;Pune&lt;/b&gt;
+                    &lt;ol type="I"&gt;
+                        &lt;li&gt;&lt;b&gt;Dighi&lt;/b&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;b&gt;Moshi&lt;/b&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;b&gt;Shivajinagar&lt;/b&gt;&lt;/li&gt;
+                    &lt;/ol&gt;
+                &lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Mumbai&lt;/b&gt;
+                    &lt;ol type="I"&gt;
+                        &lt;li&gt;&lt;b&gt;Santakruiz&lt;/b&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;b&gt;Vikroli&lt;/b&gt;&lt;/li&gt;
+                        &lt;li&gt;&lt;b&gt;Mumbra&lt;/b&gt;&lt;/li&gt;
+                    &lt;/ol&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Each new sub-list goes INSIDE its parent <code>&lt;li&gt;</code>, before the closing <code>&lt;/li&gt;</code>. Use <code>type="I"</code> on <code>&lt;ol&gt;</code> for capital Roman numerals.</div>
+</div>
+
+<!-- ============== Q8 ============== -->
+<div class="question">
+<div class="qheader">Question 8 &mdash; Country / Population table with rowspan</div>
+<div class="qdesc">Three countries (INDIA, USA, UK) each spanning 3 rows of years (1998, 1999, 2000).</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 8&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;table border="1" cellpadding="8" cellspacing="0"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Country&lt;/th&gt;
+            &lt;th colspan="2"&gt;Population (In Crores)&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="3" align="center"&gt;INDIA&lt;/td&gt;
+            &lt;td&gt;1998&lt;/td&gt;&lt;td align="right"&gt;85&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;1999&lt;/td&gt;&lt;td align="right"&gt;90&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;2000&lt;/td&gt;&lt;td align="right"&gt;100&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="3" align="center"&gt;USA&lt;/td&gt;
+            &lt;td&gt;1998&lt;/td&gt;&lt;td align="right"&gt;30&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;1999&lt;/td&gt;&lt;td align="right"&gt;35&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;2000&lt;/td&gt;&lt;td align="right"&gt;40&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="3" align="center"&gt;UK&lt;/td&gt;
+            &lt;td&gt;1998&lt;/td&gt;&lt;td align="right"&gt;25&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;1999&lt;/td&gt;&lt;td align="right"&gt;30&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;2000&lt;/td&gt;&lt;td align="right"&gt;35&lt;/td&gt;&lt;/tr&gt;
+    &lt;/table&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Same pattern used 3 times — one for each country. The country uses <code>rowspan="3"</code>, then 2 more rows with just year + population (no country cell).</div>
+</div>
+
+<!-- ============== Q9 ============== -->
+<div class="question">
+<div class="qheader">Question 9 &mdash; HTML Form (text, file, checkboxes, submit)</div>
+<div class="qdesc">A form with: text box, file picker, three checkboxes (first two pre-checked), and a Submit Query button.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 9&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;form&gt;
+        &lt;p&gt;Enter Name of your friend &lt;input type="text" name="friend"&gt;&lt;/p&gt;
+        &lt;p&gt;Choose the file you want to post to your friend&lt;/p&gt;
+        &lt;p&gt;&lt;input type="file" name="myfile"&gt;&lt;/p&gt;
+        &lt;p&gt;What does the file contain?&lt;/p&gt;
+        &lt;p&gt;
+            &lt;input type="checkbox" name="image" checked&gt; Image
+            &lt;input type="checkbox" name="source" checked&gt; Source code
+            &lt;input type="checkbox" name="binary"&gt; Binary code
+        &lt;/p&gt;
+        &lt;p&gt;You have Completed the Form.
+           &lt;input type="submit" value="Submit Query"&gt;&lt;/p&gt;
+    &lt;/form&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> <code>type="text"</code> for text box, <code>type="file"</code> for Browse button, <code>type="checkbox"</code> for tickboxes, <code>type="submit"</code> for the button. Add the word <code>checked</code> to make a checkbox already ticked.</div>
+</div>
+
+<!-- ============== Q10 ============== -->
+<div class="question">
+<div class="qheader">Question 10 &mdash; Mixed list (circle bullet + lower-Roman numerals)</div>
+<div class="qdesc">Two cities (Maharashtra, Mumbai) with hollow-circle bullets, each containing a sub-list numbered i, ii, iii, iv.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 10&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;ul style="list-style-type:circle;"&gt;
+        &lt;li&gt;&lt;b&gt;Maharashtra&lt;/b&gt;
+            &lt;ol type="i"&gt;
+                &lt;li&gt;&lt;b&gt;Pune&lt;/b&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Dighi&lt;/b&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Moshi&lt;/b&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Shivajinagar&lt;/b&gt;&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;b&gt;Mumbai&lt;/b&gt;
+            &lt;ol type="i"&gt;
+                &lt;li&gt;&lt;b&gt;Santakruiz&lt;/b&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Vikroli&lt;/b&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Mumbra&lt;/b&gt;&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Outer <code>&lt;ul&gt;</code> uses <code>circle</code>; inner <code>&lt;ol type="i"&gt;</code> gives lowercase Roman (i, ii, iii). Each nested list is placed inside its parent <code>&lt;li&gt;</code>.</div>
+</div>
+
+<!-- ============== Q11 ============== -->
+<div class="question">
+<div class="qheader">Question 11 &mdash; Simple nested bullet list (1, 2 [2.1, 2.2], 3)</div>
+<div class="qdesc">Three top-level bullets where item 2 has two sub-bullets (2.1 and 2.2) shown with hollow circles.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 11&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;ul&gt;
+        &lt;li&gt;1&lt;/li&gt;
+        &lt;li&gt;2
+            &lt;ul style="list-style-type:circle;"&gt;
+                &lt;li&gt;2.1&lt;/li&gt;
+                &lt;li&gt;2.2&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;3&lt;/li&gt;
+    &lt;/ul&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Smaller version of Q1. Just text instead of food names. Sub-list goes INSIDE the second <code>&lt;li&gt;</code>, before its closing tag.</div>
+</div>
+
+<!-- ============== Q12 ============== -->
+<div class="question">
+<div class="qheader">Question 12 &mdash; Bullet list with mixed lettering (A,B,C and a,b)</div>
+<div class="qdesc">Milk has sub-items A, B, C (uppercase). Coffee has sub-items a, b (lowercase).</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 12&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;ul&gt;
+        &lt;li&gt;&lt;b&gt;Milk&lt;/b&gt;
+            &lt;ol type="A"&gt;
+                &lt;li&gt;&lt;b&gt;Paneer&lt;/b&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Ghee&lt;/b&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Ice Cream&lt;/b&gt;&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/li&gt;
+        &lt;li&gt;&lt;b&gt;Coffee&lt;/b&gt;
+            &lt;ol type="a"&gt;
+                &lt;li&gt;&lt;b&gt;Hot Coffee&lt;/b&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;b&gt;Cold Coffee&lt;/b&gt;&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Same outer bullet list. The two <code>&lt;ol&gt;</code> tags use different <code>type</code> attributes &mdash; <code>"A"</code> for capital letters and <code>"a"</code> for lowercase letters.</div>
+</div>
+
+<!-- ============== Q13 ============== -->
+<div class="question">
+<div class="qheader">Question 13 &mdash; 3-column table with rowspan & colspan</div>
+<div class="qdesc">Row 1 has 3 columns. Row 1 Cell 1 spans 2 rows. Row 3 Cell 1 spans all 3 columns.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 13&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;table border="1" cellpadding="15" cellspacing="0" style="font-size:18px;"&gt;
+        &lt;tr align="center"&gt;
+            &lt;td&gt;Columu 1&lt;/td&gt;
+            &lt;td&gt;Columu 2&lt;/td&gt;
+            &lt;td&gt;Columu 3&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr align="center"&gt;
+            &lt;td rowspan="2"&gt;Row 1 Cell 1&lt;/td&gt;
+            &lt;td&gt;Row 1 Cell 2&lt;/td&gt;
+            &lt;td&gt;Row 1 Cell 3&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr align="center"&gt;
+            &lt;td&gt;Row 2 Cell 2&lt;/td&gt;
+            &lt;td&gt;Row 2 Cell 3&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr align="center"&gt;
+            &lt;td colspan="3"&gt;Row 3 Cell 1&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Two key cells: <code>rowspan="2"</code> on "Row 1 Cell 1" makes it tall. <code>colspan="3"</code> on "Row 3 Cell 1" makes the whole bottom row a single wide cell.</div>
+</div>
+
+<!-- ============== Q14 ============== -->
+<div class="question">
+<div class="qheader">Question 14 &mdash; Team / Player / Statistics table</div>
+<div class="qdesc">Team A and Team B each span 2 rows of players. "Statistics" header spans Goals & Assists columns.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 14&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;table border="1" cellpadding="10" cellspacing="0"&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Team&lt;/th&gt;
+            &lt;th&gt;Player&lt;/th&gt;
+            &lt;th colspan="2"&gt;Statistics&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2" align="center"&gt;Team A&lt;/td&gt;
+            &lt;td&gt;Player 1&lt;/td&gt;
+            &lt;td&gt;Goals: 4&lt;/td&gt;&lt;td&gt;Assists: 7&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Player 2&lt;/td&gt;
+            &lt;td&gt;Goals: 6&lt;/td&gt;&lt;td&gt;Assists: 5&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2" align="center"&gt;Team B&lt;/td&gt;
+            &lt;td&gt;Player 3&lt;/td&gt;
+            &lt;td&gt;Goals: 5&lt;/td&gt;&lt;td&gt;Assists: 6&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Player 4&lt;/td&gt;
+            &lt;td&gt;Goals: 3&lt;/td&gt;&lt;td&gt;Assists: 8&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> "Statistics" header uses <code>colspan="2"</code> because Goals and Assists are 2 separate columns under it. Each Team cell uses <code>rowspan="2"</code> for its 2 players.</div>
+</div>
+
+<!-- ============== Q15 ============== -->
+<div class="question">
+<div class="qheader">Question 15 &mdash; Average height/weight + Red eyes table</div>
+<div class="qdesc">Top-left cell is empty (rowspan=2). "Average" spans 2 columns (height + weight). "Red eyes" spans 2 rows on the right.</div>
+
+<div class="codebox">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Question 15&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    <span class="change">&lt;table border="1" cellpadding="10" cellspacing="0" style="background:#e8e8e8;"&gt;
+        &lt;tr&gt;
+            &lt;td rowspan="2"&gt;&lt;/td&gt;
+            &lt;th colspan="2"&gt;Average&lt;/th&gt;
+            &lt;th rowspan="2"&gt;Red&lt;br&gt;eyes&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;height&lt;/th&gt;
+            &lt;th&gt;weight&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Males&lt;/th&gt;
+            &lt;td&gt;1.9&lt;/td&gt;&lt;td&gt;0.003&lt;/td&gt;&lt;td&gt;40%&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Females&lt;/th&gt;
+            &lt;td&gt;1.7&lt;/td&gt;&lt;td&gt;0.002&lt;/td&gt;&lt;td&gt;43%&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;</span>
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<div class="step"><b>Trick:</b> Three special cells in row 1: empty cell (rowspan=2), "Average" (colspan=2), "Red eyes" (rowspan=2). Row 2 then ONLY needs height + weight because the other 2 are already taken from above.</div>
+</div>
+
+<div class="note" style="margin-top:24px;">
+<b>Final tips for the exam:</b><br>
+&bull; The <span class="legend">green parts</span> are everything you need to write inside <code>&lt;body&gt;</code>. The 5-line outer skeleton is identical for every answer.<br>
+&bull; If a table looks misaligned, count the cells in each row — every row must add up to the same number of columns once you account for <code>rowspan</code> and <code>colspan</code>.<br>
+&bull; Whenever you see "indented bullets/numbers", that means a list inside another list — write the inner list inside the parent <code>&lt;li&gt;</code> tag.<br>
+&bull; <code>&lt;b&gt;</code> = bold. <code>&lt;br&gt;</code> = line break (used in Q15 for "Red&lt;br&gt;eyes").
+</div>
+
+</body>
+</html>
