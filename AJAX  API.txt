@@ -1,0 +1,1281 @@
+
+WDL ;)
+---------------------------------------------------------------------------------------------------------------
+Question Bank Solutions  |  Page 48
+Q20.  Weather App with AJAX (Vanilla JS)
+BROWSER + API
+
+Problem Statement
+Create a weather application that fetches real-time weather data from OpenWeatherMap and displays it
+dynamically. Use XMLHttpRequest to fetch by city name. Show temperature, humidity, condition, and wind speed.
+Implement user-friendly error handling. Prevent page reload during data fetch.
+
+File(s)
+weather.html
+Final Working Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Weather App</title>
+
+<style>
+body {
+  font-family: Arial;
+  max-width: 450px;
+  margin: 50px auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #74b9ff, #a29bfe);
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+}
+
+input {
+  padding: 10px;
+  width: 60%;
+  border: none;
+  border-radius: 4px;
+}
+
+button {
+  padding: 10px 15px;
+  background: #2d3436;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#result {
+  margin-top: 20px;
+  background: rgba(255,255,255,0.2);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.err {
+  color: yellow;
+  font-weight: bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Weather App</h2>
+
+<input type="text" id="city" placeholder="Enter city">
+<button onclick="getWeather()">Search</button>
+
+<div id="result">Enter a city to see weather</div>
+
+<script>
+
+// 🔑 Replace with your API key
+const API_KEY = "d9fca50f7e312bf64523ea3b57db7082";
+
+function getWeather() {
+
+  const city = document.getElementById("city").value.trim();
+  const result = document.getElementById("result");
+
+  if (!city) {
+    result.innerHTML = '<span class="err">Please enter a city name</span>';
+    return;
+  }
+
+  result.innerHTML = "Loading...";
+
+  const xhr = new XMLHttpRequest();
+
+  const url = "https://api.openweathermap.org/data/2.5/weather?q=" +
+              encodeURIComponent(city) +
+              "&appid=" + API_KEY +
+              "&units=metric";
+
+  xhr.open("GET", url, true);
+
+  xhr.onload = function () {
+
+    if (xhr.status === 200) {
+      const data = JSON.parse(xhr.responseText);
+
+      result.innerHTML = `
+        <h3>${data.name}, ${data.sys.country}</h3>
+        <p><b>Temperature:</b> ${data.main.temp} °C</p>
+        <p><b>Condition:</b> ${data.weather[0].main}</p>
+        <p><b>Humidity:</b> ${data.main.humidity}%</p>
+        <p><b>Wind Speed:</b> ${data.wind.speed} m/s</p>
+      `;
+
+    } else if (xhr.status === 404) {
+      result.innerHTML = '<span class="err">City not found</span>';
+
+    } else if (xhr.status === 401) {
+      result.innerHTML = '<span class="err">Invalid or inactive API key</span>';
+
+    } else {
+      result.innerHTML = '<span class="err">Error fetching data</span>';
+    }
+  };
+
+  xhr.onerror = function () {
+    result.innerHTML = '<span class="err">Network error</span>';
+  };
+
+  xhr.send();
+}
+
+// Press Enter support
+document.getElementById("city").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") getWeather();
+});
+
+</script>
+
+</body>
+</html>
+
+Execution Instructions
+
+Save the file as weather.html and open it in a browser. Enter a city name and click Search to fetch weather data using XMLHttpRequest without reloading the page. The app displays temperature, humidity, weather condition, and wind speed dynamically with proper error handling.
+
+For real-time data, use an API like OpenWeather (requires API key) or Open-Meteo (no API key required, works instantly).
+-------------------------------------------------------------------------------------------------------------------
+Question Bank Solutions  |  Page 50
+Q21.  Live User Search (Vanilla JS + AJAX)
+BROWSER + API
+
+Problem Statement
+Build a search system that dynamically fetches and displays user data as the user types. Use the oninput event to
+trigger AJAX requests to JSONPlaceholder. Display results in a dropdown without refreshing the page. Show a
+loading indicator while fetching. Handle API errors gracefully.
+
+File(s)
+live_user_search.html
+
+Final Working Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Live User Search</title>
+<style>
+  body { font-family: Arial; max-width: 500px; margin: 60px auto; padding: 0 20px; }
+  h2 { color: #333; }
+  #search { width: 100%; padding: 12px; box-sizing: border-box;
+            border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+  #dropdown { border: 1px solid #ddd; border-top: none;
+              max-height: 250px; overflow-y: auto; display: none; }
+  .item { padding: 10px; border-bottom: 1px solid #eee; cursor: pointer; }
+  .item:hover { background: #f0f8ff; }
+  .item small { color: #777; }
+  #loading { display: none; padding: 10px; color: #666; }
+  .err { color: #c0392b; padding: 10px; }
+</style>
+</head>
+<body>
+  <h2>Live User Search</h2>
+  <input type="text" id="search" placeholder="Type a user's name...">
+  <div id="loading">Loading...</div>
+  <div id="dropdown"></div>
+<script>
+const search = document.getElementById('search');
+const drop   = document.getElementById('dropdown');
+const load   = document.getElementById('loading');
+let timer;
+search.addEventListener('input', function () {
+  clearTimeout(timer);
+  const q = search.value.trim().toLowerCase();
+  if (q === '') {
+    drop.style.display = 'none';
+    drop.innerHTML = '';
+    return;
+  }
+  // Debounce so we only fire after 250ms idle
+  timer = setTimeout(function () { fetchUsers(q); }, 250);
+});
+function fetchUsers(query) {
+  load.style.display = 'block';
+  drop.style.display = 'none';
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
+  xhr.onload = function () {
+    load.style.display = 'none';
+    if (xhr.status === 200) {
+      const all = JSON.parse(xhr.responseText);
+      const matches = all.filter(function (u) {
+        return u.name.toLowerCase().indexOf(query) !== -1 ||
+               u.username.toLowerCase().indexOf(query) !== -1;
+
+      });
+      renderResults(matches);
+    } else {
+      drop.innerHTML = '<div class="err">Error ' + xhr.status + '. Please try again.</div>';
+      drop.style.display = 'block';
+    }
+  };
+  xhr.onerror = function () {
+    load.style.display = 'none';
+    drop.innerHTML = '<div class="err">Network error. Check your connection.</div>';
+    drop.style.display = 'block';
+  };
+  xhr.send();
+}
+function renderResults(matches) {
+  if (matches.length === 0) {
+    drop.innerHTML = '<div class="item"><em>No users found</em></div>';
+  } else {
+    drop.innerHTML = matches.map(function (u) {
+      return '<div class="item"><strong>' + u.name + '</strong>' +
+             '<br><small>@' + u.username + ' &middot; ' + u.email + '</small></div>';
+    }).join('');
+  }
+  drop.style.display = 'block';
+}
+</script>
+</body>
+</html>
+
+Execution Instructions
+Save as live_user_search.html and open in any browser (internet required - uses public JSONPlaceholder API).
+
+-----------------------------------------------------------------------------------------------------------------------
+Question Bank Solutions  |  Page 52
+Q22.  Dynamic To-Do List (AJAX + DOM
+Manipulation)
+BROWSER + API
+
+Problem Statement
+Develop a to-do list that fetches tasks from JSONPlaceholder and allows users to add or delete tasks via AJAX
+without page reload. Show a spinner during API calls. Update the UI dynamically after each operation.
+
+File(s)
+ajax_todo.html
+
+Final Working Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AJAX To-Do List</title>
+<style>
+  body { font-family: Arial; max-width: 550px; margin: 40px auto; padding: 0 20px; }
+  h2 { color: #333; }
+  .input-row { display: flex; gap: 8px; margin-bottom: 15px; }
+  #newTask { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+  button { padding: 10px 16px; background: #2196F3; color: #fff;
+           border: none; border-radius: 4px; cursor: pointer; }
+  button:hover { background: #1976D2; }
+  .task { display: flex; justify-content: space-between; align-items: center;
+          padding: 10px; margin: 5px 0; background: #f4f4f4; border-radius: 4px; }
+  .del { background: #e74c3c; padding: 6px 12px; }
+  #spinner { display: none; text-align: center; padding: 20px;
+             font-size: 18px; color: #2196F3; }
+  .spin { display: inline-block; width: 16px; height: 16px; border: 3px solid #ddd;
+          border-top-color: #2196F3; border-radius: 50%;
+          animation: spin 0.8s linear infinite; vertical-align: middle; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+  <h2>AJAX To-Do List</h2>
+  <div class="input-row">
+    <input type="text" id="newTask" placeholder="Add a new task...">
+    <button onclick="addTask()">Add</button>
+  </div>
+  <div id="spinner"><span class="spin"></span> Loading...</div>
+  <div id="taskList"></div>
+<script>
+const API = 'https://jsonplaceholder.typicode.com/todos';
+const list    = document.getElementById('taskList');
+const spinner = document.getElementById('spinner');
+function showSpinner(on) { spinner.style.display = on ? 'block' : 'none'; }
+function loadTasks() {
+  showSpinner(true);
+  fetch(API + '?_limit=5')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      list.innerHTML = '';
+      data.forEach(renderTask);
+    })
+    .catch(function () { list.innerHTML = '<p style="color:red">Failed to load tasks.</p>'; })
+    .finally(function () { showSpinner(false); });
+}
+function renderTask(task) {
+  const div = document.createElement('div');
+  div.className = 'task';
+  div.id = 'task-' + task.id;
+
+  div.innerHTML = '<span>' + task.title + '</span>' +
+                  '<button class="del" onclick="deleteTask(' + task.id + ')">Delete</button>';
+  list.appendChild(div);
+}
+function addTask() {
+  const title = document.getElementById('newTask').value.trim();
+  if (title === '') return;
+  showSpinner(true);
+  fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: title, completed: false, userId: 1 })
+  })
+    .then(function (r) { return r.json(); })
+    .then(function (newTask) {
+      // JSONPlaceholder returns id 201 for any POST -- that's fine for the demo.
+      // Make IDs unique within the session by using a timestamp.
+      newTask.id = Date.now();
+      renderTask(newTask);
+      document.getElementById('newTask').value = '';
+    })
+    .catch(function () { alert('Failed to add task.'); })
+    .finally(function () { showSpinner(false); });
+}
+function deleteTask(id) {
+  showSpinner(true);
+  fetch(API + '/' + id, { method: 'DELETE' })
+    .then(function () {
+      const el = document.getElementById('task-' + id);
+      if (el) el.remove();
+    })
+    .catch(function () { alert('Failed to delete task.'); })
+    .finally(function () { showSpinner(false); });
+}
+loadTasks();
+</script>
+</body>
+</html>
+
+Execution Instructions
+Save as ajax_todo.html and open in any browser (internet required). Note: JSONPlaceholder is a fake REST API -- it
+accepts POST/DELETE requests and returns realistic responses, but data is not actually persisted on the server. The
+UI manages local state to simulate persistence within the session.
+--------------------------------------------------------------------------------------------------------------------
+
+Question Bank Solutions  |  Page 54
+Q23.  Country-State-City Dropdown (Event-Driven
+AJAX)
+BROWSER
+
+Problem Statement
+Implement a cascading dropdown where selecting a country fetches states, and selecting a state fetches cities.
+Use the onchange event to trigger AJAX calls. Fetch from a mock JSON source. Populate dropdowns without page
+refresh and handle errors (e.g., no states found).
+
+File(s)
+cascade_dropdown.html
+
+Final Working Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cascading Dropdown</title>
+<style>
+  body { font-family: Arial; max-width: 500px; margin: 60px auto; padding: 0 20px; }
+  h2 { color: #333; }
+  label { display: block; margin: 10px 0 4px; font-weight: bold; }
+  select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;
+           font-size: 14px; }
+  select:disabled { background: #eee; cursor: not-allowed; }
+  .status { margin-top: 4px; font-size: 12px; color: #666; }
+  .err { color: #c0392b; }
+</style>
+</head>
+<body>
+  <h2>Country &rarr; State &rarr; City</h2>
+  <label for="country">Country</label>
+  <select id="country" onchange="loadStates()">
+    <option value="">-- Select Country --</option>
+    <option value="IN">India</option>
+    <option value="US">United States</option>
+    <option value="UK">United Kingdom</option>
+  </select>
+  <label for="state">State</label>
+  <select id="state" disabled onchange="loadCities()">
+    <option value="">-- Select State --</option>
+  </select>
+  <div class="status" id="stateStatus"></div>
+  <label for="city">City</label>
+  <select id="city" disabled>
+    <option value="">-- Select City --</option>
+  </select>
+  <div class="status" id="cityStatus"></div>
+<script>
+// Mock data - in a real app this would be on the server, fetched via AJAX
+const DATA = {
+  IN: {
+    'Maharashtra':  ['Mumbai', 'Pune', 'Nagpur'],
+    'Karnataka':    ['Bangalore', 'Mysore'],
+    'Tamil Nadu':   ['Chennai', 'Coimbatore']
+  },
+  US: {
+    'California':   ['Los Angeles', 'San Francisco', 'San Diego'],
+    'Texas':        ['Houston', 'Austin', 'Dallas'],
+    'New York':     ['New York City', 'Buffalo']
+  },
+  UK: {
+    'England':      ['London', 'Manchester', 'Liverpool'],
+    'Scotland':     ['Edinburgh', 'Glasgow']
+
+  }
+};
+// Simulate an AJAX call. In production:
+//   fetch('/api/states?country=' + code).then(r => r.json()).then(callback)
+function ajaxCall(payload, callback, errorCallback) {
+  setTimeout(function () {
+    if (payload) callback(payload);
+    else errorCallback();
+  }, 300);
+}
+function loadStates() {
+  const code = document.getElementById('country').value;
+  const stateSel = document.getElementById('state');
+  const citySel  = document.getElementById('city');
+  const status   = document.getElementById('stateStatus');
+  // Reset dependent dropdowns
+  stateSel.innerHTML = '<option value="">-- Loading... --</option>';
+  stateSel.disabled = true;
+  citySel.innerHTML = '<option value="">-- Select City --</option>';
+  citySel.disabled = true;
+  document.getElementById('cityStatus').textContent = '';
+  if (code === '') {
+    stateSel.innerHTML = '<option value="">-- Select State --</option>';
+    status.textContent = '';
+    return;
+  }
+  ajaxCall(DATA[code],
+    function (states) {
+      const keys = Object.keys(states);
+      if (keys.length === 0) {
+        stateSel.innerHTML = '<option value="">-- No states found --</option>';
+        status.textContent = 'No states available for this country.';
+        status.className = 'status err';
+        return;
+      }
+      stateSel.innerHTML = '<option value="">-- Select State --</option>';
+      keys.forEach(function (s) {
+        stateSel.innerHTML += '<option value="' + s + '">' + s + '</option>';
+      });
+      stateSel.disabled = false;
+      status.textContent = keys.length + ' state(s) loaded.';
+      status.className = 'status';
+    },
+    function () {
+      stateSel.innerHTML = '<option value="">-- Error --</option>';
+      status.textContent = 'Failed to load states.';
+      status.className = 'status err';
+    }
+  );
+}
+function loadCities() {
+  const country = document.getElementById('country').value;
+  const state   = document.getElementById('state').value;
+  const citySel = document.getElementById('city');
+  const status  = document.getElementById('cityStatus');
+  citySel.innerHTML = '<option value="">-- Loading... --</option>';
+  citySel.disabled = true;
+  if (state === '') {
+    citySel.innerHTML = '<option value="">-- Select City --</option>';
+    status.textContent = '';
+    return;
+  }
+  ajaxCall(DATA[country] && DATA[country][state],
+    function (cities) {
+
+      if (!cities || cities.length === 0) {
+        citySel.innerHTML = '<option value="">-- No cities found --</option>';
+        status.textContent = 'No cities available.';
+        status.className = 'status err';
+        return;
+      }
+      citySel.innerHTML = '<option value="">-- Select City --</option>';
+      cities.forEach(function (c) {
+        citySel.innerHTML += '<option value="' + c + '">' + c + '</option>';
+      });
+      citySel.disabled = false;
+      status.textContent = cities.length + ' cities loaded.';
+      status.className = 'status';
+    },
+    function () {
+      citySel.innerHTML = '<option value="">-- Error --</option>';
+      status.textContent = 'Failed to load cities.';
+      status.className = 'status err';
+    }
+  );
+}
+</script>
+</body>
+</html>
+
+Execution Instructions
+Save as cascade_dropdown.html and open in any browser. The mock data is embedded as a JS object; the AJAX flow
+is simulated with setTimeout to mimic a real network call.
+----------------------------------------------------------------------------------------------------------
+
+Question Bank Solutions  |  Page 57
+Q24.  Login Form with AJAX (Form Handling +
+Validation)
+BROWSER
+
+Problem Statement
+Create a login form that validates inputs and submits asynchronously. Validate email and password (non-empty,
+correct format). Submit data to a mock API via AJAX. Display success/error messages without page reload. Show
+a loading animation during submission.
+
+File(s)
+ajax_login.html
+
+Final Working Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AJAX Login</title>
+<style>
+  body { font-family: Arial; background: #eef2f7; }
+  .card { max-width: 380px; margin: 60px auto; background: white;
+          padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  h2 { text-align: center; color: #333; margin-top: 0; }
+  input { width: 100%; padding: 10px; box-sizing: border-box;
+          margin: 6px 0 12px; border: 1px solid #ccc; border-radius: 4px; }
+  button { width: 100%; padding: 12px; background: #4CAF50; color: white;
+           border: none; border-radius: 4px; cursor: pointer; font-size: 15px; }
+  button:disabled { background: #aaa; cursor: not-allowed; }
+  .message { margin-top: 10px; padding: 10px; border-radius: 4px; display: none; }
+  .ok  { background: #d4edda; color: #155724; }
+  .err { background: #f8d7da; color: #721c24; }
+  .spin { display: inline-block; width: 14px; height: 14px;
+          border: 3px solid rgba(255,255,255,0.4); border-top-color: white;
+          border-radius: 50%; animation: spin 0.8s linear infinite;
+          vertical-align: middle; margin-right: 6px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .hint { font-size: 12px; color: #777; margin-top: 8px; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>Login</h2>
+    <input type="email"    id="email"    placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button id="loginBtn" onclick="doLogin()">Sign In</button>
+    <div id="message" class="message"></div>
+    <p class="hint">Demo: email <strong>demo@test.com</strong>, any password 6+ chars.</p>
+  </div>
+<script>
+function showMsg(text, ok) {
+  const m = document.getElementById('message');
+  m.textContent = text;
+  m.className = 'message ' + (ok ? 'ok' : 'err');
+  m.style.display = 'block';
+}
+function doLogin() {
+  const email = document.getElementById('email').value.trim();
+  const pass  = document.getElementById('password').value;
+  const btn   = document.getElementById('loginBtn');
+  // Validation
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showMsg('Please enter a valid email address.', false); return;
+  }
+  if (pass.length < 6) {
+    showMsg('Password must be at least 6 characters.', false); return;
+
+  }
+  // Show loading state
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> Signing in...';
+  document.getElementById('message').style.display = 'none';
+  // Simulate AJAX call. In production:
+  //   fetch('/api/login', { method:'POST', body: JSON.stringify({email,pass}) })
+  setTimeout(function () {
+    btn.disabled = false;
+    btn.textContent = 'Sign In';
+    if (email === 'demo@test.com' && pass.length >= 6) {
+      showMsg('Login successful! Welcome, ' + email, true);
+    } else {
+      showMsg('Invalid credentials. Please try again.', false);
+    }
+  }, 1200);
+}
+// Allow Enter key
+document.getElementById('password').addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') doLogin();
+});
+</script>
+</body>
+</html>
+
+Execution Instructions
+Save as ajax_login.html and open in any browser. The login is simulated locally - any password 6+ chars matched with
+email 'demo@test.com' succeeds (everything else fails).
+
+---------------------------------------------------------------------------------------------------------------
+Question Bank Solutions  |  Page 59
+
+Q25.  Comment System (AJAX + DOM Updates)
+BROWSER + API
+
+Problem Statement
+Build a comment section where users can post and view comments in real-time. Fetch existing comments from
+JSONPlaceholder. Allow new comments via AJAX. Validate comment input (non-empty). Display new comments
+with a fade-in animation.
+
+File(s)
+comments.html
+
+Final Working Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Comment System</title>
+<style>
+  body { font-family: Arial; max-width: 600px; margin: 40px auto; padding: 0 20px; }
+  h2 { color: #333; }
+  textarea { width: 100%; padding: 10px; border: 1px solid #ccc;
+             border-radius: 4px; box-sizing: border-box; resize: vertical; }
+  input { width: 100%; padding: 10px; border: 1px solid #ccc;
+          border-radius: 4px; box-sizing: border-box; margin-bottom: 8px; }
+  button { padding: 10px 20px; background: #2196F3; color: white;
+           border: none; border-radius: 4px; cursor: pointer; margin-top: 8px; }
+  .comment {
+    padding: 12px; margin: 10px 0; background: #f4f4f4;
+    border-left: 4px solid #2196F3; border-radius: 4px;
+    opacity: 0; transition: opacity 0.6s ease;
+  }
+  .comment.show { opacity: 1; }
+  .comment .name { font-weight: bold; color: #1976D2; }
+  .err { color: #c0392b; margin-top: 5px; }
+</style>
+</head>
+<body>
+  <h2>Comments</h2>
+  <h3>Leave a comment</h3>
+  <input type="text" id="name" placeholder="Your name">
+  <textarea id="body" rows="3" placeholder="Your comment..."></textarea>
+  <div id="error" class="err"></div>
+  <button onclick="postComment()">Post Comment</button>
+  <h3>Recent Comments</h3>
+  <div id="commentList">Loading...</div>
+<script>
+const API  = 'https://jsonplaceholder.typicode.com/comments';
+const list = document.getElementById('commentList');
+function loadComments() {
+  fetch(API + '?_limit=5')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      list.innerHTML = '';
+      data.forEach(function (c) { addCommentToDOM(c.name, c.body); });
+    })
+    .catch(function () { list.innerHTML = '<p style="color:red">Failed to load comments.</p>'; });
+}
+function addCommentToDOM(name, body) {
+  const div = document.createElement('div');
+  div.className = 'comment';
+  div.innerHTML = '<div class="name">' + escapeHtml(name) + '</div>' +
+                  '<div>' + escapeHtml(body) + '</div>';
+  list.prepend(div);
+  // Trigger fade-in on next frame
+
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { div.classList.add('show'); });
+  });
+}
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, function (c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function postComment() {
+  const name = document.getElementById('name').value.trim();
+  const body = document.getElementById('body').value.trim();
+  const err  = document.getElementById('error');
+  if (name === '' || body === '') {
+    err.textContent = 'Both name and comment are required.';
+    return;
+  }
+  err.textContent = '';
+  fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: name, body: body, postId: 1 })
+  })
+    .then(function (r) { return r.json(); })
+    .then(function () {
+      addCommentToDOM(name, body);
+      document.getElementById('name').value = '';
+      document.getElementById('body').value = '';
+    })
+    .catch(function () { err.textContent = 'Failed to post comment.'; });
+}
+loadComments();
+</script>
+</body>
+</html>
+
+Execution Instructions
+Save as comments.html and open in any browser (internet required for JSONPlaceholder).
+
+--------------------------------------------------------------------------------------------------------------------------
+Question Bank Solutions  |  Page 61
+Q26.  Animated News Feed (jQuery + AJAX)
+BROWSER + API
+
+Problem Statement
+Fetch news headlines and display them with smooth animations. Use jQuery AJAX. Display items one by one
+using slideDown(). Show a loading spinner. Allow users to refresh news with an animation.
+
+File(s)
+news.html
+
+Code:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Animated News Feed</title>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+body {
+  font-family: Arial;
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 0 20px;
+  background: #f5f5f5;
+}
+
+h2 { color: #333; }
+
+#refresh {
+  padding: 10px 20px;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#refresh:hover { background: #1976D2; }
+
+#spinner {
+  display: none;
+  text-align: center;
+  padding: 30px;
+}
+
+.spin {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 4px solid #ddd;
+  border-top-color: #2196F3;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.news-item {
+  display: none;
+  background: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-left: 4px solid #2196F3;
+}
+
+.news-item h3 {
+  margin: 0 0 8px;
+  color: #1976D2;
+}
+
+.news-item p {
+  margin: 0;
+  color: #555;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Latest News</h2>
+
+<button id="refresh">🔄 Refresh News</button>
+
+<div id="spinner"><span class="spin"></span></div>
+
+<div id="newsFeed"></div>
+
+<script>
+
+$(document).ready(function () {
+
+  // ✅ MOCK DATA (acts like API response)
+  const MOCK_NEWS = [
+    { title: "Tech innovation is rising", body: "New AI tools are changing the industry rapidly." },
+    { title: "Sports update today", body: "India wins the match in a thrilling finish." },
+    { title: "Weather alert", body: "Heavy rainfall expected in Mumbai this week." },
+    { title: "Education reforms", body: "New policies introduced for digital learning." },
+    { title: "Startup boom", body: "Young entrepreneurs are leading new startups." }
+  ];
+
+  // ✅ Simulated AJAX function
+  function fetchNews(callback) {
+    setTimeout(function () {
+      callback(MOCK_NEWS);
+    }, 800); // delay to simulate API
+  }
+
+  function loadNews() {
+    $('#newsFeed').empty();
+    $('#spinner').show();
+
+    fetchNews(function (data) {
+      $('#spinner').hide();
+
+      // animate items one by one
+      data.forEach(function (item, i) {
+
+        var $div = $('<div class="news-item"></div>')
+          .append('<h3>' + item.title + '</h3>')
+          .append('<p>' + item.body + '</p>');
+
+        $('#newsFeed').append($div);
+
+        // slideDown animation
+        $div.delay(i * 200).slideDown(400);
+      });
+    });
+  }
+
+  // Refresh button with animation
+  $('#refresh').click(function () {
+
+    $('#refresh').prop('disabled', true).text('Refreshing...');
+
+    $('#newsFeed').children().slideUp(300, function () {
+      $(this).remove();
+    });
+
+    setTimeout(function () {
+      loadNews();
+      $('#refresh').prop('disabled', false).text('🔄 Refresh News');
+    }, 400);
+  });
+
+  // Initial load
+  loadNews();
+
+});
+
+</script>
+
+</body>
+</html>
+
+Execution Instructions
+
+Save the file as news.html and open it in any browser. Click the Refresh News button to load headlines using a simulated AJAX call. A loading spinner appears while fetching data, and news items display one by one using slide-down animation.
+-------------------------------------------------------------------------------------------------------------------
+Question Bank Solutions  |  Page 63
+Q27.  Shopping Cart (AJAX + jQuery Animations)
+BROWSER + API
+
+Problem Statement
+Create an interactive shopping cart where users can add/remove items dynamically. Fetch product data from a
+mock API. Add items via AJAX POST. Remove items with a fadeOut() animation. Update cart total without page
+reload.
+
+File(s)
+ajax_cart.html
+
+Final Working Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AJAX Shopping Cart</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+  body { font-family: Arial; max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+  h2, h3 { color: #333; }
+  .layout { display: flex; gap: 20px; }
+  .products, .cart { flex: 1; background: #fafafa; padding: 15px; border-radius: 6px; }
+  .product, .cart-item {
+    padding: 10px; margin: 8px 0; background: #fff;
+    border-radius: 4px; border-left: 4px solid #2196F3;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cart-item { border-left-color: #4CAF50; }
+  button { padding: 6px 12px; background: #2196F3; color: white;
+           border: none; border-radius: 4px; cursor: pointer; }
+  .remove { background: #e74c3c; }
+  #total { margin-top: 15px; font-size: 18px; font-weight: bold; color: #4CAF50; }
+</style>
+</head>
+<body>
+  <h2>Shopping Cart</h2>
+  <div class="layout">
+    <div class="products">
+      <h3>Products</h3>
+      <div id="productList">Loading...</div>
+    </div>
+    <div class="cart">
+      <h3>Your Cart</h3>
+      <div id="cartList"></div>
+      <div id="total">Total: $0.00</div>
+    </div>
+  </div>
+<script>
+$(document).ready(function () {
+  var total = 0;
+  var nextItemId = 1;
+  // Fetch product data from mock API. In a real shop you'd hit /api/products
+  // and get real product objects. JSONPlaceholder /photos gives us titles+ids.
+  $.get('https://jsonplaceholder.typicode.com/photos?_limit=6', function (data) {
+    $('#productList').empty();
+    data.forEach(function (p) {
+      // Make up a price based on id so it's deterministic
+      var price = parseFloat((10 + (p.id % 50)).toFixed(2));
+      var $item = $('<div class="product"></div>')
+        .append('<span><strong>' + p.title.substring(0, 30) + '</strong>'
+                + '<br><small>$' + price + '</small></span>')
+        .append($('<button>Add to Cart</button>')
+          .click(function () { addToCart(p.title.substring(0, 30), price); }));
+      $('#productList').append($item);
+    });
+  }).fail(function () {
+
+    $('#productList').html('<p style="color:red">Failed to load products.</p>');
+  });
+  function addToCart(name, price) {
+    // Simulate POST to /api/cart in a real app
+    $.ajax({
+      url: 'https://jsonplaceholder.typicode.com/posts',
+      method: 'POST',
+      data: JSON.stringify({ title: name, price: price }),
+      contentType: 'application/json',
+      success: function () {
+        var id = 'cart-' + (nextItemId++);
+        var $item = $('<div class="cart-item" id="' + id + '"></div>')
+          .append('<span>' + name + ' &mdash; $' + price.toFixed(2) + '</span>')
+          .append($('<button class="remove">Remove</button>')
+            .click(function () { removeFromCart(id, price); }));
+        $item.hide().appendTo('#cartList').fadeIn(300);
+        total += price;
+        updateTotal();
+      },
+      error: function () { alert('Failed to add item.'); }
+    });
+  }
+  function removeFromCart(id, price) {
+    $('#' + id).fadeOut(300, function () {
+      $(this).remove();
+      total -= price;
+      updateTotal();
+    });
+  }
+  function updateTotal() {
+    $('#total').text('Total: $' + total.toFixed(2));
+  }
+});
+</script>
+</body>
+</html>
+
+Execution Instructions
+Save as ajax_cart.html and open in any browser (internet required for JSONPlaceholder).
+
+------------------------------------------------------------------------------------------------------
+Q28.  Infinite Scroll (jQuery + AJAX)
+BROWSER + API
+
+Problem Statement
+Implement an infinite scroll feature that loads more content as the user scrolls down. Fetch initial posts from
+JSONPlaceholder. Load more when the user reaches the bottom. Use fadeIn() for smooth content loading. Show a
+'Loading...' indicator during fetch.
+
+File(s)
+infinite_scroll.html
+
+Final Working Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Infinite Scroll</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+  body { font-family: Arial; max-width: 700px; margin: 0 auto; padding: 20px;
+         background: #f5f5f5; }
+  h2 { color: #333; text-align: center; }
+  .post {
+    display: none; background: white; padding: 15px; margin: 10px 0;
+    border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .post h3 { margin: 0 0 8px; color: #1976D2; }
+  .post p  { margin: 0; color: #555; line-height: 1.5; }
+  #loader  { text-align: center; padding: 20px; font-weight: bold;
+             color: #2196F3; display: none; }
+  #end     { text-align: center; padding: 20px; color: #777;
+             font-style: italic; display: none; }
+</style>
+</head>
+<body>
+  <h2>Infinite Scroll Demo</h2>
+  <div id="posts"></div>
+  <div id="loader">Loading more posts...</div>
+  <div id="end">You've reached the end!</div>
+<script>
+$(document).ready(function () {
+  var page = 1;
+  var perPage = 5;
+  var loading = false;
+  var done = false;
+  function loadPosts() {
+    if (loading || done) return;
+    loading = true;
+    $('#loader').show();
+    $.ajax({
+      url: 'https://jsonplaceholder.typicode.com/posts',
+      data: { _page: page, _limit: perPage },
+      success: function (data) {
+        $('#loader').hide();
+        loading = false;
+        if (data.length === 0) {
+          done = true;
+          $('#end').show();
+          return;
+        }
+        data.forEach(function (p) {
+          var $div = $('<div class="post"></div>')
+            .append('<h3>' + p.title + '</h3>')
+            .append('<p>' + p.body + '</p>');
+
+          $('#posts').append($div);
+          $div.fadeIn(400);
+        });
+        page++;
+        // JSONPlaceholder has 100 posts; stop after we've loaded them all
+        if (page * perPage > 100) { done = true; $('#end').show(); }
+      },
+      error: function () {
+        $('#loader').hide();
+        loading = false;
+        $('#posts').append('<p style="color:red;text-align:center;">Failed to load posts.</p>');
+      }
+    });
+  }
+  // Trigger load when user scrolls near the bottom
+  $(window).scroll(function () {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height() - 100) {
+      loadPosts();
+    }
+  });
+  loadPosts();  // Initial load
+});
+</script>
+</body>
+</html>
+
+Execution Instructions
+Save as infinite_scroll.html and open in any browser (internet required).
+
+-------------------------------------------------------------------------------------------------------------------
+Question Bank Solutions  
+
+Q29.  Interactive Poll System (AJAX + Real-Time
+Updates)
+BROWSER
+
+Problem Statement
+Build a poll system where users can vote and see real-time results. Fetch poll questions and options. Allow users
+to submit votes via AJAX. Update vote counts dynamically with slideUp/slideDown. Prevent multiple votes from the
+same user.
+
+File(s)
+poll.html
+
+Final Working Code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Poll System</title>
+
+<style>
+body {
+  font-family: Arial;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h2 { text-align: center; }
+
+.poll-option {
+  background: #f4f4f4;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.poll-option:hover { background: #ddd; }
+
+.bar {
+  height: 20px;
+  background: #2196F3;
+  margin-top: 5px;
+  border-radius: 4px;
+  width: 0;
+  transition: width 0.5s;
+}
+
+#msg {
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+</style>
+
+</head>
+<body>
+
+<h2 id="question">Loading...</h2>
+
+<div id="options"></div>
+
+<div id="msg"></div>
+
+<button onclick="resetVote()">Reset Vote (Demo)</button>
+
+<script>
+
+// ✅ MOCK API DATA (acts like fetched data)
+const API_DATA = {
+  question: "Which frontend framework do you like?",
+  options: [
+    { id: 1, text: "React", votes: 5 },
+    { id: 2, text: "Angular", votes: 3 },
+    { id: 3, text: "Vue", votes: 4 }
+  ]
+};
+
+// Simulate AJAX fetch
+function fetchPoll() {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(API_DATA), 500);
+  });
+}
+
+// Load poll
+async function loadPoll() {
+  const data = await fetchPoll();
+
+  document.getElementById("question").innerText = data.question;
+
+  const container = document.getElementById("options");
+  container.innerHTML = "";
+
+  data.options.forEach(opt => {
+    const div = document.createElement("div");
+    div.className = "poll-option";
+    div.innerHTML = `
+      ${opt.text}
+      <div class="bar" id="bar-${opt.id}"></div>
+      <span id="count-${opt.id}">${opt.votes} votes</span>
+    `;
+
+    div.onclick = () => vote(opt.id);
+    container.appendChild(div);
+  });
+
+  updateBars();
+}
+
+// Vote function (AJAX simulation)
+function vote(id) {
+
+  // ❌ Prevent multiple votes
+  if (localStorage.getItem("voted")) {
+    document.getElementById("msg").innerText = "You already voted!";
+    return;
+  }
+
+  document.getElementById("msg").innerText = "";
+
+  // Simulate AJAX POST
+  setTimeout(() => {
+    const option = API_DATA.options.find(o => o.id === id);
+    option.votes++;
+
+    localStorage.setItem("voted", "true");
+
+    animateUpdate();
+  }, 300);
+}
+
+// Update UI with animation
+function animateUpdate() {
+  const container = document.getElementById("options");
+
+  // slide up
+  container.style.transform = "translateY(-10px)";
+  container.style.opacity = "0";
+
+  setTimeout(() => {
+    loadPoll();
+
+    // slide down
+    container.style.transform = "translateY(0)";
+    container.style.opacity = "1";
+  }, 300);
+}
+
+// Update bar widths
+function updateBars() {
+  const total = API_DATA.options.reduce((sum, o) => sum + o.votes, 0);
+
+  API_DATA.options.forEach(opt => {
+    const percent = (opt.votes / total) * 100;
+
+    document.getElementById(`bar-${opt.id}`).style.width = percent + "%";
+    document.getElementById(`count-${opt.id}`).innerText = opt.votes + " votes";
+  });
+}
+
+// Reset for demo
+function resetVote() {
+  localStorage.removeItem("voted");
+  document.getElementById("msg").innerText = "Vote reset!";
+}
+
+// Initial load
+loadPoll();
+
+</script>
+
+</body>
+</html>
+
+Execution Instructions
+
+Save the file as poll.html and open it in any browser. The poll loads using a simulated AJAX call and displays options. Click an option to vote, and the results update dynamically with animation. Multiple voting is prevented using localStorage, so you can vote only once unless you clear the browser storage or use the reset option.
+
+
+ 
+

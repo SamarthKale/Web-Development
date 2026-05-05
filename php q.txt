@@ -1,0 +1,989 @@
+================================================================================
+  PHP ASSIGNMENTS Q10–Q19 | XAMPP / MySQL
+  Place each file in: C:\xampp\htdocs\
+  Start Apache + MySQL in XAMPP Control Panel before running.
+================================================================================
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q10 — q10_register.php  |  User Registration System
+────────────────────────────────────────────────────────────────────────────────
+-- Run this SQL in phpMyAdmin first:
+-- CREATE DATABASE q10_db;
+-- USE q10_db;
+-- CREATE TABLE users (
+--   id INT AUTO_INCREMENT PRIMARY KEY,
+--   name VARCHAR(100),
+--   email VARCHAR(100) UNIQUE,
+--   password VARCHAR(255),
+--   phone VARCHAR(15)
+-- );
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q10_register.php — User Registration System
+
+// DB connection
+$conn = new mysqli("localhost", "root", "", "q10_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors = [];
+$success = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name  = trim($_POST["name"]);
+    $email = trim($_POST["email"]);
+    $pass  = trim($_POST["password"]);
+    $phone = trim($_POST["phone"]);
+
+    // Validation
+    if (empty($name))                         $errors[] = "Name is required.";
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Invalid email.";
+    if (empty($pass))                         $errors[] = "Password is required.";
+    if (!preg_match('/^\d{10}$/', $phone))    $errors[] = "Phone must be 10 digits.";
+
+    if (empty($errors)) {
+        $hashed = password_hash($pass, PASSWORD_BCRYPT); // Hash password
+        $stmt = $conn->prepare("INSERT INTO users (name,email,password,phone) VALUES (?,?,?,?)");
+        $stmt->bind_param("ssss", $name, $email, $hashed, $phone);
+        if ($stmt->execute()) {
+            header("Location: q10_welcome.php?name=" . urlencode($name));
+            exit;
+        } else {
+            $errors[] = "Email already registered.";
+        }
+    }
+}
+?>
+<!DOCTYPE html><html><head><title>Register</title></head><body>
+<h2>User Registration</h2>
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+<form method="POST">
+  Name:  <input name="name"><br><br>
+  Email: <input name="email"><br><br>
+  Password: <input type="password" name="password"><br><br>
+  Phone: <input name="phone"><br><br>
+  <button type="submit">Register</button>
+</form>
+</body></html>
+
+────────────────────────────────────────────────────────────────────────────────
+Also create: q10_welcome.php
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q10_welcome.php — Welcome page after registration
+$name = htmlspecialchars($_GET["name"] ?? "User");
+echo "<h2>Welcome, $name! You have registered successfully.</h2>";
+echo "<a href='q10_register.php'>Back to Register</a>";
+?>
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q11 — q11_students.php  |  Student Record Management System
+────────────────────────────────────────────────────────────────────────────────
+-- SQL:
+-- CREATE DATABASE q11_db;
+-- USE q11_db;
+-- CREATE TABLE students (
+--   roll_no INT PRIMARY KEY,
+--   name VARCHAR(100),
+--   class VARCHAR(50),
+--   marks FLOAT
+-- );
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q11_students.php — Student Record Management
+
+$conn = new mysqli("localhost", "root", "", "q11_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors = [];
+$action = $_GET["action"] ?? "list";
+$id     = (int)($_GET["id"] ?? 0);
+
+// Add student
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add"])) {
+    $roll  = (int)$_POST["roll_no"];
+    $name  = trim($_POST["name"]);
+    $class = trim($_POST["class"]);
+    $marks = $_POST["marks"];
+
+    if (!$roll)                       $errors[] = "Roll No required.";
+    if (empty($name))                 $errors[] = "Name required.";
+    if (empty($class))                $errors[] = "Class required.";
+    if (!is_numeric($marks))          $errors[] = "Marks must be numeric.";
+
+    if (empty($errors)) {
+        $stmt = $conn->prepare("INSERT INTO students VALUES (?,?,?,?)");
+        $stmt->bind_param("issd", $roll, $name, $class, $marks);
+        $stmt->execute() ? header("Location: q11_students.php") : ($errors[] = "Roll No already exists.");
+        exit;
+    }
+}
+
+// Edit student
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
+    $roll  = (int)$_POST["roll_no"];
+    $name  = trim($_POST["name"]);
+    $class = trim($_POST["class"]);
+    $marks = $_POST["marks"];
+    $stmt  = $conn->prepare("UPDATE students SET name=?,class=?,marks=? WHERE roll_no=?");
+    $stmt->bind_param("ssdi", $name, $class, $marks, $roll);
+    $stmt->execute();
+    header("Location: q11_students.php"); exit;
+}
+
+// Delete
+if ($action == "delete" && $id) {
+    $conn->query("DELETE FROM students WHERE roll_no=$id");
+    header("Location: q11_students.php"); exit;
+}
+
+// Search
+$search = trim($_GET["search"] ?? "");
+$query  = "SELECT * FROM students";
+if ($search) $query .= " WHERE name LIKE '%$search%' OR roll_no='$search'";
+$query .= " ORDER BY roll_no";
+$result = $conn->query($query);
+
+// Fetch for edit
+$editRow = null;
+if ($action == "edit" && $id) $editRow = $conn->query("SELECT * FROM students WHERE roll_no=$id")->fetch_assoc();
+?>
+<!DOCTYPE html><html><head><title>Students</title></head><body>
+<h2>Student Records</h2>
+<form method="GET">
+  Search: <input name="search" value="<?= htmlspecialchars($search) ?>">
+  <button>Search</button> <a href="q11_students.php">Reset</a>
+</form><br>
+
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+
+<!-- Add / Edit Form -->
+<form method="POST">
+  Roll No: <input name="roll_no" value="<?= $editRow["roll_no"] ?? "" ?>" <?= $editRow ? "readonly" : "" ?>><br>
+  Name:    <input name="name"    value="<?= htmlspecialchars($editRow["name"] ?? "") ?>"><br>
+  Class:   <input name="class"   value="<?= htmlspecialchars($editRow["class"] ?? "") ?>"><br>
+  Marks:   <input name="marks"   value="<?= $editRow["marks"] ?? "" ?>"><br>
+  <?php if ($editRow): ?>
+    <button name="edit">Update</button>
+  <?php else: ?>
+    <button name="add">Add Student</button>
+  <?php endif; ?>
+</form><br>
+
+<table border="1" cellpadding="5">
+  <tr><th>Roll No</th><th>Name</th><th>Class</th><th>Marks</th><th>Actions</th></tr>
+  <?php while ($row = $result->fetch_assoc()): ?>
+  <tr>
+    <td><?= $row["roll_no"] ?></td>
+    <td><?= htmlspecialchars($row["name"]) ?></td>
+    <td><?= htmlspecialchars($row["class"]) ?></td>
+    <td><?= $row["marks"] ?></td>
+    <td>
+      <a href="?action=edit&id=<?= $row["roll_no"] ?>">Edit</a> |
+      <a href="?action=delete&id=<?= $row["roll_no"] ?>" onclick="return confirm('Delete?')">Delete</a>
+    </td>
+  </tr>
+  <?php endwhile; ?>
+</table>
+</body></html>
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q12 — q12_inventory.php  |  Product Inventory Management
+────────────────────────────────────────────────────────────────────────────────
+-- SQL:
+-- CREATE DATABASE q12_db;
+-- USE q12_db;
+-- CREATE TABLE products (
+--   product_id INT AUTO_INCREMENT PRIMARY KEY,
+--   name VARCHAR(100),
+--   price DECIMAL(10,2),
+--   quantity INT
+-- );
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q12_inventory.php — Product Inventory Management
+
+$conn = new mysqli("localhost", "root", "", "q12_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors = [];
+$action = $_GET["action"] ?? "list";
+$id     = (int)($_GET["id"] ?? 0);
+
+// Add product
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add"])) {
+    $name  = trim($_POST["name"]);
+    $price = $_POST["price"];
+    $qty   = $_POST["quantity"];
+
+    if (empty($name))        $errors[] = "Name required.";
+    if (!is_numeric($price) || $price <= 0) $errors[] = "Price must be a positive number.";
+    if (!is_numeric($qty)   || $qty < 0)    $errors[] = "Quantity must be a positive number.";
+
+    if (empty($errors)) {
+        // product_id is AUTO_INCREMENT — unique by default
+        $stmt = $conn->prepare("INSERT INTO products (name,price,quantity) VALUES (?,?,?)");
+        $stmt->bind_param("sdi", $name, $price, $qty);
+        $stmt->execute();
+        header("Location: q12_inventory.php"); exit;
+    }
+}
+
+// Update stock
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update"])) {
+    $qty  = (int)$_POST["quantity"];
+    $stmt = $conn->prepare("UPDATE products SET quantity=? WHERE product_id=?");
+    $stmt->bind_param("ii", $qty, $id);
+    $stmt->execute();
+    header("Location: q12_inventory.php"); exit;
+}
+
+// Delete
+if ($action == "delete" && $id) {
+    $conn->query("DELETE FROM products WHERE product_id=$id");
+    header("Location: q12_inventory.php"); exit;
+}
+
+$result  = $conn->query("SELECT * FROM products ORDER BY product_id");
+$editRow = null;
+if ($action == "edit" && $id) $editRow = $conn->query("SELECT * FROM products WHERE product_id=$id")->fetch_assoc();
+?>
+<!DOCTYPE html><html><head><title>Inventory</title></head><body>
+<h2>Product Inventory</h2>
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+
+<!-- Add Form -->
+<h3>Add Product</h3>
+<form method="POST">
+  Name: <input name="name"><br>
+  Price: <input name="price"><br>
+  Quantity: <input name="quantity"><br>
+  <button name="add">Add Product</button>
+</form>
+
+<?php if ($editRow): ?>
+<h3>Update Stock for: <?= htmlspecialchars($editRow["name"]) ?></h3>
+<form method="POST" action="?action=edit&id=<?= $id ?>">
+  New Quantity: <input name="quantity" value="<?= $editRow["quantity"] ?>">
+  <button name="update">Update</button>
+</form>
+<?php endif; ?>
+
+<h3>All Products</h3>
+<table border="1" cellpadding="5">
+  <tr><th>ID</th><th>Name</th><th>Price</th><th>Quantity</th><th>Actions</th></tr>
+  <?php while ($row = $result->fetch_assoc()): ?>
+  <tr>
+    <td><?= $row["product_id"] ?></td>
+    <td><?= htmlspecialchars($row["name"]) ?></td>
+    <td>₹<?= $row["price"] ?></td>
+    <td><?= $row["quantity"] ?></td>
+    <td>
+      <a href="?action=edit&id=<?= $row["product_id"] ?>">Update Stock</a> |
+      <a href="?action=delete&id=<?= $row["product_id"] ?>" onclick="return confirm('Delete?')">Delete</a>
+    </td>
+  </tr>
+  <?php endwhile; ?>
+</table>
+</body></html>
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q13 — q13_tasks.php  |  Task Manager Application
+────────────────────────────────────────────────────────────────────────────────
+-- SQL:
+-- CREATE DATABASE q13_db;
+-- USE q13_db;
+-- CREATE TABLE tasks (
+--   id INT AUTO_INCREMENT PRIMARY KEY,
+--   task_name VARCHAR(100),
+--   description TEXT,
+--   due_date DATE,
+--   status ENUM('pending','completed') DEFAULT 'pending'
+-- );
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q13_tasks.php — Task Manager
+
+$conn = new mysqli("localhost", "root", "", "q13_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors = [];
+$action = $_GET["action"] ?? "";
+$id     = (int)($_GET["id"] ?? 0);
+
+// Add task
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = trim($_POST["task_name"]);
+    $desc = trim($_POST["description"]);
+    $due  = $_POST["due_date"];
+
+    if (empty($name))               $errors[] = "Task name required.";
+    if (empty($due))                $errors[] = "Due date required.";
+    if (!empty($due) && $due <= date("Y-m-d")) $errors[] = "Due date must be in the future.";
+
+    if (empty($errors)) {
+        $stmt = $conn->prepare("INSERT INTO tasks (task_name,description,due_date) VALUES (?,?,?)");
+        $stmt->bind_param("sss", $name, $desc, $due);
+        $stmt->execute();
+        header("Location: q13_tasks.php"); exit;
+    }
+}
+
+// Mark complete
+if ($action == "complete" && $id) {
+    $conn->query("UPDATE tasks SET status='completed' WHERE id=$id");
+    header("Location: q13_tasks.php"); exit;
+}
+
+// Delete
+if ($action == "delete" && $id) {
+    $conn->query("DELETE FROM tasks WHERE id=$id");
+    header("Location: q13_tasks.php"); exit;
+}
+
+$pending   = $conn->query("SELECT * FROM tasks WHERE status='pending' ORDER BY due_date");
+$completed = $conn->query("SELECT * FROM tasks WHERE status='completed' ORDER BY due_date");
+?>
+<!DOCTYPE html><html><head><title>Task Manager</title></head><body>
+<h2>Task Manager</h2>
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+<form method="POST">
+  Task Name: <input name="task_name"><br>
+  Description: <textarea name="description"></textarea><br>
+  Due Date: <input type="date" name="due_date"><br>
+  <button type="submit">Add Task</button>
+</form>
+
+<h3>Pending Tasks</h3>
+<ul>
+<?php while ($row = $pending->fetch_assoc()): ?>
+  <li>
+    <b><?= htmlspecialchars($row["task_name"]) ?></b> — <?= $row["due_date"] ?><br>
+    <?= htmlspecialchars($row["description"]) ?><br>
+    <a href="?action=complete&id=<?= $row["id"] ?>">Mark Complete</a> |
+    <a href="?action=delete&id=<?= $row["id"] ?>" onclick="return confirm('Delete?')">Delete</a>
+  </li>
+<?php endwhile; ?>
+</ul>
+
+<h3>Completed Tasks</h3>
+<ul>
+<?php while ($row = $completed->fetch_assoc()): ?>
+  <li>
+    <b><?= htmlspecialchars($row["task_name"]) ?></b> — <?= $row["due_date"] ?>
+    <a href="?action=delete&id=<?= $row["id"] ?>" onclick="return confirm('Delete?')"> [Delete]</a>
+  </li>
+<?php endwhile; ?>
+</ul>
+</body></html>
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q14 — q14_library.php  |  Library Book Tracking System
+────────────────────────────────────────────────────────────────────────────────
+-- SQL:
+-- CREATE DATABASE q14_db;
+-- USE q14_db;
+-- CREATE TABLE books (
+--   book_id VARCHAR(20) PRIMARY KEY,
+--   title VARCHAR(150),
+--   author VARCHAR(100),
+--   category VARCHAR(50)
+-- );
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q14_library.php — Library Book Tracking
+
+$conn = new mysqli("localhost", "root", "", "q14_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors = [];
+$action = $_GET["action"] ?? "list";
+$id     = $_GET["id"] ?? "";
+
+// Add book
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add"])) {
+    $bid    = trim($_POST["book_id"]);
+    $title  = trim($_POST["title"]);
+    $author = trim($_POST["author"]);
+    $cat    = trim($_POST["category"]);
+
+    if (empty($bid) || empty($title) || empty($author) || empty($cat))
+        $errors[] = "All fields are required.";
+
+    if (empty($errors)) {
+        $stmt = $conn->prepare("INSERT INTO books VALUES (?,?,?,?)");
+        $stmt->bind_param("ssss", $bid, $title, $author, $cat);
+        $stmt->execute() ? header("Location: q14_library.php") : ($errors[] = "Book ID already exists.");
+        exit;
+    }
+}
+
+// Update
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["update"])) {
+    $title  = trim($_POST["title"]);
+    $author = trim($_POST["author"]);
+    $cat    = trim($_POST["category"]);
+    $bid    = $_POST["book_id"];
+    $stmt   = $conn->prepare("UPDATE books SET title=?,author=?,category=? WHERE book_id=?");
+    $stmt->bind_param("ssss", $title, $author, $cat, $bid);
+    $stmt->execute();
+    header("Location: q14_library.php"); exit;
+}
+
+// Delete
+if ($action == "delete" && $id) {
+    $conn->query("DELETE FROM books WHERE book_id='". $conn->real_escape_string($id) ."'");
+    header("Location: q14_library.php"); exit;
+}
+
+// Search
+$search = trim($_GET["search"] ?? "");
+$query  = "SELECT * FROM books";
+if ($search) $query .= " WHERE title LIKE '%$search%' OR author LIKE '%$search%'";
+$result = $conn->query($query);
+
+$editRow = null;
+if ($action == "edit" && $id)
+    $editRow = $conn->query("SELECT * FROM books WHERE book_id='". $conn->real_escape_string($id) ."'")->fetch_assoc();
+?>
+<!DOCTYPE html><html><head><title>Library</title></head><body>
+<h2>Library Book Tracker</h2>
+<form method="GET">
+  Search: <input name="search" value="<?= htmlspecialchars($search) ?>">
+  <button>Search</button> <a href="q14_library.php">Reset</a>
+</form><br>
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+
+<form method="POST">
+  Book ID: <input name="book_id" value="<?= htmlspecialchars($editRow["book_id"] ?? "") ?>" <?= $editRow ? "readonly" : "" ?>><br>
+  Title:   <input name="title"   value="<?= htmlspecialchars($editRow["title"] ?? "") ?>"><br>
+  Author:  <input name="author"  value="<?= htmlspecialchars($editRow["author"] ?? "") ?>"><br>
+  Category:<input name="category" value="<?= htmlspecialchars($editRow["category"] ?? "") ?>"><br>
+  <?php if ($editRow): ?>
+    <button name="update">Update Book</button>
+  <?php else: ?>
+    <button name="add">Add Book</button>
+  <?php endif; ?>
+</form><br>
+
+<table border="1" cellpadding="5">
+  <tr><th>Book ID</th><th>Title</th><th>Author</th><th>Category</th><th>Actions</th></tr>
+  <?php while ($row = $result->fetch_assoc()): ?>
+  <tr>
+    <td><?= htmlspecialchars($row["book_id"]) ?></td>
+    <td><?= htmlspecialchars($row["title"]) ?></td>
+    <td><?= htmlspecialchars($row["author"]) ?></td>
+    <td><?= htmlspecialchars($row["category"]) ?></td>
+    <td>
+      <a href="?action=edit&id=<?= urlencode($row["book_id"]) ?>">Edit</a> |
+      <a href="?action=delete&id=<?= urlencode($row["book_id"]) ?>" onclick="return confirm('Delete?')">Delete</a>
+    </td>
+  </tr>
+  <?php endwhile; ?>
+</table>
+</body></html>
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q15 — q15_attendance.php  |  Employee Attendance System
+────────────────────────────────────────────────────────────────────────────────
+-- SQL:
+-- CREATE DATABASE q15_db;
+-- USE q15_db;
+-- CREATE TABLE employees (
+--   employee_id INT AUTO_INCREMENT PRIMARY KEY,
+--   name VARCHAR(100)
+-- );
+-- CREATE TABLE attendance (
+--   id INT AUTO_INCREMENT PRIMARY KEY,
+--   employee_id INT,
+--   date DATE,
+--   status ENUM('Present','Absent'),
+--   UNIQUE KEY unique_att (employee_id, date)
+-- );
+-- INSERT INTO employees (name) VALUES ('Alice'),('Bob'),('Charlie');
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q15_attendance.php — Employee Attendance System
+
+$conn = new mysqli("localhost", "root", "", "q15_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors  = [];
+$success = "";
+$today   = date("Y-m-d");
+
+// Mark attendance
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["mark"])) {
+    $eid    = (int)$_POST["employee_id"];
+    $status = $_POST["status"];
+    $stmt   = $conn->prepare("INSERT INTO attendance (employee_id,date,status) VALUES (?,?,?)");
+    $stmt->bind_param("iss", $eid, $today, $status);
+    $stmt->execute() ? ($success = "Attendance marked!") : ($errors[] = "Attendance already marked for today.");
+}
+
+// Fetch employees for dropdown
+$emps = $conn->query("SELECT * FROM employees");
+
+// Admin view — filter by date or employee
+$filter_date = $_GET["filter_date"] ?? $today;
+$filter_emp  = (int)($_GET["filter_emp"] ?? 0);
+$query = "SELECT a.*, e.name FROM attendance a JOIN employees e ON a.employee_id=e.employee_id WHERE a.date='$filter_date'";
+if ($filter_emp) $query .= " AND a.employee_id=$filter_emp";
+$report = $conn->query($query);
+?>
+<!DOCTYPE html><html><head><title>Attendance</title></head><body>
+<h2>Employee Attendance — Today: <?= $today ?></h2>
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+<?php if ($success) echo "<p style='color:green'>$success</p>"; ?>
+
+<h3>Mark Attendance</h3>
+<form method="POST">
+  Employee:
+  <select name="employee_id">
+    <?php $emps->data_seek(0); while ($e = $emps->fetch_assoc()): ?>
+      <option value="<?= $e["employee_id"] ?>"><?= htmlspecialchars($e["name"]) ?></option>
+    <?php endwhile; ?>
+  </select>
+  Status:
+  <select name="status">
+    <option>Present</option>
+    <option>Absent</option>
+  </select>
+  <button name="mark">Submit</button>
+</form>
+
+<h3>Attendance Report</h3>
+<form method="GET">
+  Date: <input type="date" name="filter_date" value="<?= $filter_date ?>">
+  Employee:
+  <select name="filter_emp">
+    <option value="0">All</option>
+    <?php $emps->data_seek(0); while ($e = $emps->fetch_assoc()): ?>
+      <option value="<?= $e["employee_id"] ?>" <?= $filter_emp == $e["employee_id"] ? "selected" : "" ?>>
+        <?= htmlspecialchars($e["name"]) ?>
+      </option>
+    <?php endwhile; ?>
+  </select>
+  <button>Filter</button>
+</form>
+<table border="1" cellpadding="5">
+  <tr><th>Employee</th><th>Date</th><th>Status</th></tr>
+  <?php while ($row = $report->fetch_assoc()): ?>
+  <tr>
+    <td><?= htmlspecialchars($row["name"]) ?></td>
+    <td><?= $row["date"] ?></td>
+    <td><?= $row["status"] ?></td>
+  </tr>
+  <?php endwhile; ?>
+</table>
+</body></html>
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q16 — q16_feedback.php  |  Online Feedback Form
+────────────────────────────────────────────────────────────────────────────────
+-- SQL:
+-- CREATE DATABASE q16_db;
+-- USE q16_db;
+-- CREATE TABLE feedback (
+--   id INT AUTO_INCREMENT PRIMARY KEY,
+--   name VARCHAR(100),
+--   email VARCHAR(100),
+--   message TEXT,
+--   submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q16_feedback.php — Online Feedback Form with Pagination
+
+$conn = new mysqli("localhost", "root", "", "q16_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors  = [];
+$success = "";
+
+// Submit feedback
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name  = trim($_POST["name"]);
+    $email = trim($_POST["email"]);
+    $msg   = trim($_POST["message"]);
+
+    if (empty($name))                         $errors[] = "Name required.";
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Invalid email.";
+    if (strlen($msg) < 20)                    $errors[] = "Feedback must be at least 20 characters.";
+
+    if (empty($errors)) {
+        $stmt = $conn->prepare("INSERT INTO feedback (name,email,message) VALUES (?,?,?)");
+        $stmt->bind_param("sss", $name, $email, $msg);
+        $stmt->execute();
+        $success = "Feedback submitted!";
+    }
+}
+
+// Pagination — 5 entries per page
+$per_page  = 5;
+$page      = max(1, (int)($_GET["page"] ?? 1));
+$offset    = ($page - 1) * $per_page;
+$total     = $conn->query("SELECT COUNT(*) FROM feedback")->fetch_row()[0];
+$pages     = ceil($total / $per_page);
+$feedbacks = $conn->query("SELECT * FROM feedback ORDER BY submitted_at DESC LIMIT $per_page OFFSET $offset");
+?>
+<!DOCTYPE html><html><head><title>Feedback</title></head><body>
+<h2>College Feedback Form</h2>
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+<?php if ($success) echo "<p style='color:green'>$success</p>"; ?>
+
+<form method="POST">
+  Name:    <input name="name"><br>
+  Email:   <input name="email"><br>
+  Feedback:<br><textarea name="message" rows="4" cols="40"></textarea><br>
+  <button type="submit">Submit</button>
+</form>
+
+<h3>All Feedback (Page <?= $page ?> of <?= $pages ?>)</h3>
+<table border="1" cellpadding="5">
+  <tr><th>#</th><th>Name</th><th>Email</th><th>Feedback</th><th>Date</th></tr>
+  <?php $i = $offset + 1; while ($row = $feedbacks->fetch_assoc()): ?>
+  <tr>
+    <td><?= $i++ ?></td>
+    <td><?= htmlspecialchars($row["name"]) ?></td>
+    <td><?= htmlspecialchars($row["email"]) ?></td>
+    <td><?= htmlspecialchars($row["message"]) ?></td>
+    <td><?= $row["submitted_at"] ?></td>
+  </tr>
+  <?php endwhile; ?>
+</table>
+
+<!-- Pagination links -->
+<?php for ($p = 1; $p <= $pages; $p++): ?>
+  <a href="?page=<?= $p ?>"><?= $p ?></a>
+<?php endfor; ?>
+</body></html>
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q17 — q17_movies.php  |  Movie Database Manager
+────────────────────────────────────────────────────────────────────────────────
+-- SQL:
+-- CREATE DATABASE q17_db;
+-- USE q17_db;
+-- CREATE TABLE movies (
+--   id INT AUTO_INCREMENT PRIMARY KEY,
+--   title VARCHAR(150),
+--   director VARCHAR(100),
+--   release_year INT,
+--   genre VARCHAR(50)
+-- );
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q17_movies.php — Movie Database Manager
+
+$conn = new mysqli("localhost", "root", "", "q17_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors = [];
+$action = $_GET["action"] ?? "list";
+$id     = (int)($_GET["id"] ?? 0);
+
+// Add movie
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add"])) {
+    $title    = trim($_POST["title"]);
+    $director = trim($_POST["director"]);
+    $year     = (int)$_POST["release_year"];
+    $genre    = trim($_POST["genre"]);
+
+    if (empty($title) || empty($director) || empty($genre)) $errors[] = "All fields required.";
+    if ($year < 1900 || $year > 2025)                       $errors[] = "Year must be between 1900 and 2025.";
+
+    if (empty($errors)) {
+        $stmt = $conn->prepare("INSERT INTO movies (title,director,release_year,genre) VALUES (?,?,?,?)");
+        $stmt->bind_param("ssis", $title, $director, $year, $genre);
+        $stmt->execute();
+        header("Location: q17_movies.php"); exit;
+    }
+}
+
+// Edit movie
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
+    $title    = trim($_POST["title"]);
+    $director = trim($_POST["director"]);
+    $year     = (int)$_POST["release_year"];
+    $genre    = trim($_POST["genre"]);
+    $stmt     = $conn->prepare("UPDATE movies SET title=?,director=?,release_year=?,genre=? WHERE id=?");
+    $stmt->bind_param("ssisi", $title, $director, $year, $genre, $id);
+    $stmt->execute();
+    header("Location: q17_movies.php"); exit;
+}
+
+// Delete
+if ($action == "delete" && $id) {
+    $conn->query("DELETE FROM movies WHERE id=$id");
+    header("Location: q17_movies.php"); exit;
+}
+
+// Genre filter
+$genre_filter = $_GET["genre"] ?? "";
+$all_genres   = $conn->query("SELECT DISTINCT genre FROM movies ORDER BY genre");
+$query = "SELECT * FROM movies";
+if ($genre_filter) $query .= " WHERE genre='" . $conn->real_escape_string($genre_filter) . "'";
+$result  = $conn->query($query);
+$editRow = null;
+if ($action == "edit" && $id)
+    $editRow = $conn->query("SELECT * FROM movies WHERE id=$id")->fetch_assoc();
+?>
+<!DOCTYPE html><html><head><title>Movies</title></head><body>
+<h2>Movie Database</h2>
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+
+<form method="POST">
+  Title:    <input name="title"    value="<?= htmlspecialchars($editRow["title"] ?? "") ?>"><br>
+  Director: <input name="director" value="<?= htmlspecialchars($editRow["director"] ?? "") ?>"><br>
+  Year:     <input name="release_year" value="<?= $editRow["release_year"] ?? "" ?>"><br>
+  Genre:    <input name="genre"    value="<?= htmlspecialchars($editRow["genre"] ?? "") ?>"><br>
+  <?php if ($editRow): ?>
+    <button name="edit">Update Movie</button>
+  <?php else: ?>
+    <button name="add">Add Movie</button>
+  <?php endif; ?>
+</form>
+
+<form method="GET">
+  Filter by Genre:
+  <select name="genre" onchange="this.form.submit()">
+    <option value="">All</option>
+    <?php while ($g = $all_genres->fetch_assoc()): ?>
+      <option value="<?= htmlspecialchars($g["genre"]) ?>" <?= $genre_filter == $g["genre"] ? "selected" : "" ?>>
+        <?= htmlspecialchars($g["genre"]) ?>
+      </option>
+    <?php endwhile; ?>
+  </select>
+</form>
+
+<table border="1" cellpadding="5">
+  <tr><th>Title</th><th>Director</th><th>Year</th><th>Genre</th><th>Actions</th></tr>
+  <?php while ($row = $result->fetch_assoc()): ?>
+  <tr>
+    <td><?= htmlspecialchars($row["title"]) ?></td>
+    <td><?= htmlspecialchars($row["director"]) ?></td>
+    <td><?= $row["release_year"] ?></td>
+    <td><?= htmlspecialchars($row["genre"]) ?></td>
+    <td>
+      <a href="?action=edit&id=<?= $row["id"] ?>">Edit</a> |
+      <a href="?action=delete&id=<?= $row["id"] ?>" onclick="return confirm('Delete?')">Delete</a>
+    </td>
+  </tr>
+  <?php endwhile; ?>
+</table>
+</body></html>
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q18 — q18_patients.php  |  Hospital Patient Registration
+────────────────────────────────────────────────────────────────────────────────
+-- SQL:
+-- CREATE DATABASE q18_db;
+-- USE q18_db;
+-- CREATE TABLE patients (
+--   patient_id VARCHAR(20) PRIMARY KEY,
+--   name VARCHAR(100),
+--   age INT,
+--   gender ENUM('Male','Female','Other'),
+--   address TEXT
+-- );
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q18_patients.php — Hospital Patient Registration
+
+$conn = new mysqli("localhost", "root", "", "q18_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors = [];
+
+// Register patient
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $pid     = trim($_POST["patient_id"]);
+    $name    = trim($_POST["name"]);
+    $age     = $_POST["age"];
+    $gender  = $_POST["gender"];
+    $address = trim($_POST["address"]);
+
+    if (empty($pid) || empty($name) || empty($address)) $errors[] = "All fields are required.";
+    if (!is_numeric($age) || $age <= 0 || $age > 150)   $errors[] = "Age must be a valid number.";
+    if (!in_array($gender, ["Male","Female","Other"]))   $errors[] = "Select valid gender.";
+
+    if (empty($errors)) {
+        $stmt = $conn->prepare("INSERT INTO patients VALUES (?,?,?,?,?)");
+        $stmt->bind_param("ssiss", $pid, $name, $age, $gender, $address);
+        $stmt->execute() ? header("Location: q18_patients.php") : ($errors[] = "Patient ID already exists.");
+        exit;
+    }
+}
+
+// Search
+$search = trim($_GET["search"] ?? "");
+$query  = "SELECT * FROM patients";
+if ($search) $query .= " WHERE name LIKE '%$search%' OR patient_id='$search'";
+$result = $conn->query($query);
+?>
+<!DOCTYPE html><html><head><title>Patients</title></head><body>
+<h2>Patient Registration</h2>
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+
+<form method="POST">
+  Patient ID: <input name="patient_id"><br>
+  Name:       <input name="name"><br>
+  Age:        <input name="age"><br>
+  Gender:
+  <select name="gender">
+    <option>Male</option><option>Female</option><option>Other</option>
+  </select><br>
+  Address: <textarea name="address"></textarea><br>
+  <button type="submit">Register</button>
+</form>
+
+<form method="GET">
+  Search: <input name="search" value="<?= htmlspecialchars($search) ?>">
+  <button>Search</button> <a href="q18_patients.php">Reset</a>
+</form>
+
+<table border="1" cellpadding="5">
+  <tr><th>Patient ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Address</th></tr>
+  <?php while ($row = $result->fetch_assoc()): ?>
+  <tr>
+    <td><?= htmlspecialchars($row["patient_id"]) ?></td>
+    <td><?= htmlspecialchars($row["name"]) ?></td>
+    <td><?= $row["age"] ?></td>
+    <td><?= $row["gender"] ?></td>
+    <td><?= htmlspecialchars($row["address"]) ?></td>
+  </tr>
+  <?php endwhile; ?>
+</table>
+</body></html>
+
+
+────────────────────────────────────────────────────────────────────────────────
+Q19 — q19_quiz.php  |  Online Quiz Application
+────────────────────────────────────────────────────────────────────────────────
+-- SQL:
+-- CREATE DATABASE q19_db;
+-- USE q19_db;
+-- CREATE TABLE questions (
+--   id INT AUTO_INCREMENT PRIMARY KEY,
+--   question TEXT,
+--   option1 VARCHAR(200),
+--   option2 VARCHAR(200),
+--   option3 VARCHAR(200),
+--   correct_answer VARCHAR(200)
+-- );
+-- CREATE TABLE results (
+--   id INT AUTO_INCREMENT PRIMARY KEY,
+--   user_name VARCHAR(100),
+--   score INT,
+--   total INT,
+--   taken_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+────────────────────────────────────────────────────────────────────────────────
+<?php
+// q19_quiz.php — Online Quiz Application
+
+$conn = new mysqli("localhost", "root", "", "q19_db");
+if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+
+$errors = [];
+$mode   = $_GET["mode"] ?? "menu"; // menu | add | quiz | result
+
+// Admin: Add question
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["add_q"])) {
+    $q  = trim($_POST["question"]);
+    $o1 = trim($_POST["option1"]);
+    $o2 = trim($_POST["option2"]);
+    $o3 = trim($_POST["option3"]);
+    $ca = trim($_POST["correct_answer"]);
+
+    if (empty($q) || empty($o1) || empty($o2) || empty($o3) || empty($ca))
+        $errors[] = "All fields including correct answer are required.";
+
+    if (empty($errors)) {
+        $stmt = $conn->prepare("INSERT INTO questions (question,option1,option2,option3,correct_answer) VALUES (?,?,?,?,?)");
+        $stmt->bind_param("sssss", $q, $o1, $o2, $o3, $ca);
+        $stmt->execute();
+        header("Location: q19_quiz.php?mode=add&added=1"); exit;
+    }
+}
+
+// User: Submit quiz
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_quiz"])) {
+    $user  = trim($_POST["user_name"]);
+    $qs    = $conn->query("SELECT * FROM questions");
+    $score = 0; $total = $qs->num_rows;
+    while ($row = $qs->fetch_assoc()) {
+        $ans = $_POST["q_" . $row["id"]] ?? "";
+        if ($ans == $row["correct_answer"]) $score++;
+    }
+    $stmt = $conn->prepare("INSERT INTO results (user_name,score,total) VALUES (?,?,?)");
+    $stmt->bind_param("sii", $user, $score, $total);
+    $stmt->execute();
+    header("Location: q19_quiz.php?mode=result&score=$score&total=$total&user=" . urlencode($user)); exit;
+}
+?>
+<!DOCTYPE html><html><head><title>Quiz</title></head><body>
+<h2>Online Quiz Application</h2>
+<a href="?mode=menu">Home</a> | <a href="?mode=add">Admin: Add Question</a> | <a href="?mode=quiz">Take Quiz</a>
+<hr>
+<?php foreach ($errors as $e) echo "<p style='color:red'>$e</p>"; ?>
+
+<?php if ($mode == "add"): ?>
+  <?php if (isset($_GET["added"])) echo "<p style='color:green'>Question added!</p>"; ?>
+  <h3>Add New Question</h3>
+  <form method="POST">
+    Question: <input name="question" size="50"><br>
+    Option 1: <input name="option1"><br>
+    Option 2: <input name="option2"><br>
+    Option 3: <input name="option3"><br>
+    Correct Answer (must match one option exactly): <input name="correct_answer"><br>
+    <button name="add_q">Add Question</button>
+  </form>
+
+<?php elseif ($mode == "quiz"): ?>
+  <h3>Take the Quiz</h3>
+  <form method="POST">
+    Your Name: <input name="user_name" required><br><br>
+    <?php
+    $qs = $conn->query("SELECT * FROM questions");
+    while ($row = $qs->fetch_assoc()):
+    ?>
+    <b><?= htmlspecialchars($row["question"]) ?></b><br>
+    <label><input type="radio" name="q_<?= $row["id"] ?>" value="<?= htmlspecialchars($row["option1"]) ?>">
+      <?= htmlspecialchars($row["option1"]) ?></label><br>
+    <label><input type="radio" name="q_<?= $row["id"] ?>" value="<?= htmlspecialchars($row["option2"]) ?>">
+      <?= htmlspecialchars($row["option2"]) ?></label><br>
+    <label><input type="radio" name="q_<?= $row["id"] ?>" value="<?= htmlspecialchars($row["option3"]) ?>">
+      <?= htmlspecialchars($row["option3"]) ?></label><br><br>
+    <?php endwhile; ?>
+    <button name="submit_quiz">Submit Quiz</button>
+  </form>
+
+<?php elseif ($mode == "result"): ?>
+  <h3>Result for <?= htmlspecialchars($_GET["user"] ?? "") ?></h3>
+  <p>Score: <?= (int)$_GET["score"] ?> / <?= (int)$_GET["total"] ?></p>
+  <a href="?mode=quiz">Take Again</a>
+
+<?php else: ?>
+  <p>Welcome! Use the links above to add questions (Admin) or take the quiz.</p>
+<?php endif; ?>
+</body></html>
+
+
+================================================================================
+  HOW TO USE
+  1. Open phpMyAdmin (http://localhost/phpmyadmin)
+  2. Run the SQL block at the top of each question to create the DB & table.
+  3. Copy the PHP code into a file named as shown (e.g. q10_register.php).
+  4. Place the file in C:\xampp\htdocs\
+  5. Open http://localhost/q10_register.php in your browser.
+================================================================================

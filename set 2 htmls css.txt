@@ -1,0 +1,1403 @@
+<!-- Q1. College Information Web Page -->
+ 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>College Homepage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+      margin: 20px;
+    }
+    h1 {
+      font-size: 40px;
+      font-weight: bold;
+      color: #003366;
+    }
+    .address {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    .course1 { color: red; font-style: italic; }
+    .course2 { color: green; font-weight: bold; }
+    .course3 { color: blue; font-family: Georgia, serif; }
+    .course4 { color: purple; font-style: oblique; }
+    img {
+      width: 500px;
+      height: 300px;
+      margin-top: 20px;
+      border: 3px solid #003366;
+    }
+  </style>
+</head>
+<body>
+ 
+  <h1>ABC College of Engineering</h1>
+  <p class="address">123 College Road, Pune, Maharashtra - 411001</p>
+ 
+  <h2>Courses Offered</h2>
+  <ul style="list-style: none; padding: 0;">
+    <li class="course1">B.E. Computer Engineering</li>
+    <li class="course2">B.E. Mechanical Engineering</li>
+    <li class="course3">B.E. Civil Engineering</li>
+    <li class="course4">MBA - Master of Business Administration</li>
+  </ul>
+ 
+  <img src="college.jpg" alt="College Image">
+ 
+</body>
+</html>
+
+
+<!-- Q2. Styled Resume Web Page -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resume</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 30px auto;
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+    .header {
+      text-align: center;
+    }
+    .header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 2px solid #333;
+    }
+    h1 { margin: 10px 0 5px; }
+    h2 {
+      background-color: #003366;
+      color: white;
+      padding: 5px 10px;
+      margin-top: 20px;
+    }
+    p, li {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    ul { padding-left: 20px; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <img src="profile.jpg" alt="Profile Picture">
+    <h1>Rahul Sharma</h1>
+  </div>
+
+  <h2>Personal Details</h2>
+  <p><strong>Name:</strong> Rahul Sharma</p>
+  <p><strong>Contact:</strong> +91-9876543210</p>
+  <p><strong>Email:</strong> rahul.sharma@email.com</p>
+
+  <h2>Education</h2>
+  <ul>
+    <li>B.E. Computer Engineering - ABC College (2024) - 8.5 CGPA</li>
+    <li>12th HSC - XYZ Junior College (2020) - 85%</li>
+    <li>10th SSC - PQR High School (2018) - 90%</li>
+  </ul>
+
+  <h2>Skills</h2>
+  <ul>
+    <li>HTML, CSS, JavaScript</li>
+    <li>Python, Java</li>
+    <li>MySQL Database</li>
+  </ul>
+
+  <h2>Work Experience</h2>
+  <ul>
+    <li>Web Developer Intern - TechSoft Pvt. Ltd. (June 2023 - Aug 2023)</li>
+    <li>Freelance Web Designer (2022 - Present)</li>
+  </ul>
+
+</body>
+</html>
+
+
+<!-- Q3. Multi-Column Layout for a News Website -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>News Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+    header {
+      background-color: #cc0000;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .container {
+      display: flex;
+      margin: 20px;
+      gap: 20px;
+    }
+    .left-column {
+      flex: 2;
+      background-color: white;
+      padding: 15px;
+      border: 1px solid #ddd;
+    }
+    .right-column {
+      flex: 1;
+      background-color: white;
+      padding: 15px;
+      border: 1px solid #ddd;
+    }
+    h2 {
+      color: #cc0000;
+      border-bottom: 2px solid #cc0000;
+      padding-bottom: 5px;
+    }
+    .article {
+      margin-bottom: 20px;
+    }
+    .article h3 {
+      margin: 0 0 5px;
+      color: #333;
+    }
+    .ad-box {
+      background-color: #ffe599;
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .trending li {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>Daily News Today</header>
+
+  <div class="container">
+
+    <!-- Left Column: News Articles -->
+    <div class="left-column">
+      <h2>Featured News</h2>
+
+      <div class="article">
+        <h3>1. India Wins Cricket World Cup 2024</h3>
+        <p>India clinched the championship with a thrilling last-over finish against Australia in the final match held in Mumbai.</p>
+      </div>
+
+      <div class="article">
+        <h3>2. New Tech Startup Raises $100M Funding</h3>
+        <p>A Bangalore-based AI startup has raised $100 million in Series B funding from top global investors.</p>
+      </div>
+
+      <div class="article">
+        <h3>3. Government Launches Free Education Scheme</h3>
+        <p>The government announced free online education for all students up to grade 12 starting next academic year.</p>
+      </div>
+    </div>
+
+    <!-- Right Column: Ads and Trending -->
+    <div class="right-column">
+      <h2>Advertisement</h2>
+      <div class="ad-box">
+        <p><strong>50% OFF on Online Courses!</strong></p>
+        <p>Visit: www.learnfast.com</p>
+      </div>
+      <div class="ad-box">
+        <p><strong>Buy 1 Get 1 Free!</strong></p>
+        <p>Shop at: www.megastore.com</p>
+      </div>
+
+      <h2>Trending Topics</h2>
+      <ul class="trending">
+        <li>#CricketWorldCup</li>
+        <li>#ArtificialIntelligence</li>
+        <li>#EducationScheme</li>
+        <li>#StartupIndia</li>
+        <li>#ClimateChange</li>
+      </ul>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+
+<!-- Q4. Product Showcase Web Page -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Showcase</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .product {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 15px;
+      width: 200px;
+      transition: background-color 0.3s;
+    }
+    .product:hover {
+      background-color: #d0e8ff;
+    }
+    .product img {
+      width: 180px;
+      height: 150px;
+      object-fit: cover;
+    }
+    .product h3 {
+      margin: 10px 0 5px;
+      color: #222;
+    }
+    .product .price {
+      color: green;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .product p {
+      font-size: 13px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Our Products</h1>
+
+  <div class="grid">
+
+    <div class="product">
+      <img src="laptop.jpg" alt="Laptop">
+      <h3>Laptop Pro</h3>
+      <p class="price">Rs. 55,000</p>
+      <p>High performance laptop with 16GB RAM and 512GB SSD.</p>
+    </div>
+
+    <div class="product">
+      <img src="phone.jpg" alt="Smartphone">
+      <h3>SmartPhone X</h3>
+      <p class="price">Rs. 20,000</p>
+      <p>5G enabled smartphone with 108MP camera and 5000mAh battery.</p>
+    </div>
+
+    <div class="product">
+      <img src="headphones.jpg" alt="Headphones">
+      <h3>Wireless Headphones</h3>
+      <p class="price">Rs. 3,500</p>
+      <p>Noise cancelling wireless headphones with 30hr battery life.</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+
+
+<!-- Q5. Contact Us Form Styling -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact Us</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .form-container {
+      background-color: white;
+      padding: 30px;
+      width: 400px;
+      border: 1px solid #ccc;
+    }
+    h2 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Contact Us</h2>
+
+    <label>Name:</label>
+    <input type="text" placeholder="Enter your name">
+
+    <label>Email:</label>
+    <input type="email" placeholder="Enter your email">
+
+    <label>Phone Number:</label>
+    <input type="tel" placeholder="Enter your phone number">
+
+    <label>Message:</label>
+    <textarea placeholder="Write your message here..."></textarea>
+
+    <button type="submit">Submit</button>
+  </div>
+
+</body>
+</html>
+
+
+<!-- Q6. Responsive Navigation Bar -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Navigation Bar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Sticky Navbar */
+    nav {
+      background-color: #003366;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    nav ul li a {
+      display: block;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    nav ul li a:hover {
+      color: #ffcc00;
+      background-color: #001f4d;
+    }
+
+    /* Page content to show sticky effect */
+    .content {
+      padding: 30px;
+    }
+    .content h1 { color: #333; }
+    .section {
+      height: 400px;
+      border-bottom: 1px solid #ccc;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="content">
+    <div class="section" id="home">
+      <h1>Home Section</h1>
+      <p>Welcome to our website. Scroll down to see the sticky navbar in action.</p>
+    </div>
+    <div class="section" id="about">
+      <h1>About Section</h1>
+      <p>We are a leading technology company.</p>
+    </div>
+    <div class="section" id="services">
+      <h1>Services Section</h1>
+      <p>We offer web development, app development, and IT consulting.</p>
+    </div>
+    <div class="section" id="contact">
+      <h1>Contact Section</h1>
+      <p>Email: info@company.com | Phone: +91-9876543210</p>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+<!-- Q7. Image Gallery with Hover Effects -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photo Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 25px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .gallery img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border: 3px solid #ccc;
+      box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.08);
+      border-color: #003366;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Photo Gallery</h1>
+
+  <div class="gallery">
+    <img src="image1.jpg" alt="Photo 1">
+    <img src="image2.jpg" alt="Photo 2">
+    <img src="image3.jpg" alt="Photo 3">
+    <img src="image4.jpg" alt="Photo 4">
+    <img src="image5.jpg" alt="Photo 5">
+    <img src="image6.jpg" alt="Photo 6">
+  </div>
+
+</body>
+</html>
+
+
+<!-- Q8. Restaurant Menu Page -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Restaurant Menu</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      background-color: #fff8f0;
+      margin: 20px;
+      max-width: 700px;
+      margin: 30px auto;
+    }
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      color: #8b0000;
+      margin-bottom: 5px;
+    }
+    .tagline {
+      text-align: center;
+      color: #555;
+      font-style: italic;
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: #8b0000;
+      border-bottom: 2px solid #8b0000;
+      padding-bottom: 5px;
+      margin-top: 25px;
+    }
+    .item {
+      margin: 12px 0;
+      padding: 10px;
+      background-color: white;
+      border-left: 4px solid #8b0000;
+    }
+    .item-name {
+      font-weight: bold;
+      font-size: 16px;
+      color: #222;
+    }
+    .item-desc {
+      font-size: 13px;
+      color: #666;
+      margin: 3px 0;
+    }
+    .item-price {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Our Menu</h1>
+  <p class="tagline">Taste the Tradition, Enjoy the Flavor</p>
+
+  <!-- Starters -->
+  <h2>Starters</h2>
+
+  <div class="item">
+    <p class="item-name">Paneer Tikka</p>
+    <p class="item-desc">Grilled cottage cheese with spices and mint chutney.</p>
+    <p class="item-price">Rs. 180</p>
+  </div>
+
+  <div class="item">
+    <p class="item-name">Veg Soup</p>
+    <p class="item-desc">Fresh vegetable soup with herbs and croutons.</p>
+    <p class="item-price">Rs. 120</p>
+  </div>
+
+  <!-- Main Course -->
+  <h2>Main Course</h2>
+
+  <div class="item">
+    <p class="item-name">Butter Chicken</p>
+    <p class="item-desc">Tender chicken in rich creamy tomato gravy served with naan.</p>
+    <p class="item-price">Rs. 320</p>
+  </div>
+
+  <div class="item">
+    <p class="item-name">Dal Makhani</p>
+    <p class="item-desc">Slow-cooked black lentils in buttery tomato sauce.</p>
+    <p class="item-price">Rs. 220</p>
+  </div>
+
+  <!-- Desserts -->
+  <h2>Desserts</h2>
+
+  <div class="item">
+    <p class="item-name">Gulab Jamun</p>
+    <p class="item-desc">Soft milk dumplings soaked in rose-flavored sugar syrup.</p>
+    <p class="item-price">Rs. 100</p>
+  </div>
+
+  <div class="item">
+    <p class="item-name">Ice Cream</p>
+    <p class="item-desc">3 scoops of assorted flavors - vanilla, chocolate, strawberry.</p>
+    <p class="item-price">Rs. 150</p>
+  </div>
+
+  <!-- Beverages -->
+  <h2>Beverages</h2>
+
+  <div class="item">
+    <p class="item-name">Mango Lassi</p>
+    <p class="item-desc">Chilled yogurt drink blended with fresh mango pulp.</p>
+    <p class="item-price">Rs. 90</p>
+  </div>
+
+  <div class="item">
+    <p class="item-name">Masala Chai</p>
+    <p class="item-desc">Traditional spiced Indian tea with ginger and cardamom.</p>
+    <p class="item-price">Rs. 50</p>
+  </div>
+
+</body>
+</html>
+
+
+<!-- Q9. CSS Animations for a Welcome Page -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #001f4d;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    /* Fade-in animation for heading */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Slide-in from left for subheading */
+    @keyframes slideIn {
+      from { transform: translateX(-200px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 50px;
+      animation: fadeIn 2s ease-in;
+      color: #ffcc00;
+    }
+
+    h3 {
+      font-size: 22px;
+      animation: slideIn 1.5s ease-out;
+      animation-delay: 0.5s;
+      animation-fill-mode: both;
+      color: #cce5ff;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 14px 35px;
+      font-size: 16px;
+      background-color: #ffcc00;
+      color: #001f4d;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.4s, color 0.4s;
+    }
+
+    button:hover {
+      background-color: #cc0000;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to Our Website!</h1>
+  <h3>Your journey to excellence starts here.</h3>
+  <button>Get Started</button>
+
+</body>
+</html>
+
+
+<!-- Q10. Multi-Section Landing Page -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Landing Page</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; }
+
+    /* Hero Section */
+    .hero {
+      background-image: url("hero-bg.jpg");
+      background-size: cover;
+      background-color: #003366; /* fallback */
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+    }
+    .hero h1 { font-size: 48px; margin-bottom: 15px; }
+    .hero p { font-size: 20px; }
+
+    /* Common Section Styles */
+    section {
+      padding: 50px 60px;
+    }
+    section h2 {
+      font-size: 28px;
+      color: #003366;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 5px;
+    }
+
+    /* About Section */
+    .about {
+      background-color: #f9f9f9;
+    }
+    .about p { font-size: 16px; line-height: 1.7; color: #444; }
+
+    /* Services Section */
+    .services {
+      background-color: white;
+    }
+    .services ul {
+      padding-left: 20px;
+    }
+    .services ul li {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    /* Contact Section */
+    .contact {
+      background-color: #003366;
+      color: white;
+    }
+    .contact h2 { color: #ffcc00; border-color: #ffcc00; }
+    .contact p { font-size: 16px; margin: 8px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>Welcome to TechSolutions</h1>
+    <p>We build modern digital solutions for your business.</p>
+  </div>
+
+  <!-- About Us Section -->
+  <section class="about">
+    <h2>About Us</h2>
+    <p>TechSolutions is a leading IT company founded in 2010. We specialize in web development, mobile applications, and cloud computing. Our mission is to help businesses grow with innovative technology solutions.</p>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Web Development - Custom websites and web applications</li>
+      <li>Mobile App Development - Android and iOS applications</li>
+      <li>Cloud Solutions - Secure cloud hosting and management</li>
+    </ul>
+  </section>
+
+  <!-- Contact Us Section -->
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <p>Email: info@techsolutions.com</p>
+    <p>Phone: +91-9876543210</p>
+  </section>
+
+</body>
+</html>
+
+
+<!-- Q11. Personal Portfolio Web Page -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #003366;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #ffcc00;
+      margin-bottom: 10px;
+    }
+    header h1 { margin: 5px 0; }
+    section {
+      padding: 30px 60px;
+      background-color: white;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #003366;
+      border-left: 5px solid #003366;
+      padding-left: 10px;
+      margin-bottom: 15px;
+    }
+    .skills span {
+      display: inline-block;
+      padding: 5px 12px;
+      margin: 5px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+    .sk1 { background-color: #ffd6d6; color: red; }
+    .sk2 { background-color: #d6f5d6; color: green; }
+    .sk3 { background-color: #d6e8ff; color: blue; }
+    .sk4 { background-color: #fff3cc; color: #cc8800; }
+    .project {
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin: 10px 0;
+    }
+    .project h3 { margin: 0 0 5px; color: #003366; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="profile.jpg" alt="Profile Picture">
+    <h1>Priya Desai</h1>
+    <p>Web Developer | Designer | Tech Enthusiast</p>
+  </header>
+
+  <section>
+    <h2>About Me</h2>
+    <p>I am a passionate web developer with 2 years of experience in building responsive and user-friendly websites. I love turning ideas into reality through clean code and creative design.</p>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <div class="skills">
+      <span class="sk1">HTML & CSS</span>
+      <span class="sk2">JavaScript</span>
+      <span class="sk3">Python</span>
+      <span class="sk4">MySQL</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <div class="project">
+      <h3>1. E-Commerce Website</h3>
+      <p>A full-stack online store with cart and payment features built using HTML, CSS, and JavaScript.</p>
+    </div>
+    <div class="project">
+      <h3>2. Student Management System</h3>
+      <p>A Python and MySQL-based desktop application to manage student records and grades.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>Email: priya.desai@email.com</p>
+    <p>Phone: +91-9876543210</p>
+    <p>LinkedIn: linkedin.com/in/priyadesai</p>
+  </section>
+
+</body>
+</html>
+
+
+<!-- Q12. Team Members Page -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Our Team</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 30px;
+    }
+    .team-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .member {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 20px;
+      width: 180px;
+    }
+    .member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid #003366;
+      margin-bottom: 10px;
+    }
+    .member h3 {
+      font-size: 16px;
+      margin: 5px 0;
+      color: #003366;
+    }
+    .member p {
+      font-size: 13px;
+      color: #555;
+    }
+    .role {
+      color: #cc0000;
+      font-weight: bold;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Meet Our Team</h1>
+
+  <div class="team-grid">
+
+    <div class="member">
+      <img src="member1.jpg" alt="Amit Joshi">
+      <h3>Amit Joshi</h3>
+      <p class="role">CEO & Founder</p>
+      <p>Visionary leader with 15 years of industry experience.</p>
+    </div>
+
+    <div class="member">
+      <img src="member2.jpg" alt="Sneha Patil">
+      <h3>Sneha Patil</h3>
+      <p class="role">Lead Developer</p>
+      <p>Full-stack developer specializing in modern web technologies.</p>
+    </div>
+
+    <div class="member">
+      <img src="member3.jpg" alt="Rohit Kumar">
+      <h3>Rohit Kumar</h3>
+      <p class="role">UI/UX Designer</p>
+      <p>Creative designer passionate about user experience.</p>
+    </div>
+
+    <div class="member">
+      <img src="member4.jpg" alt="Anita Sharma">
+      <h3>Anita Sharma</h3>
+      <p class="role">Marketing Head</p>
+      <p>Digital marketing expert with a focus on brand growth.</p>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+
+
+<!-- Q13. Pricing Table for a Website -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pricing Plans</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+      margin: 30px;
+    }
+    h1 {
+      color: #003366;
+      margin-bottom: 30px;
+    }
+    .pricing-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .plan {
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 25px;
+      width: 220px;
+    }
+    .plan h2 {
+      font-size: 22px;
+      color: #003366;
+      margin-bottom: 10px;
+    }
+    .price {
+      font-size: 32px;
+      color: green;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    .price span {
+      font-size: 14px;
+      color: #666;
+      font-weight: normal;
+    }
+    .plan ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin: 15px 0;
+    }
+    .plan ul li {
+      padding: 6px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      color: #333;
+    }
+    .plan ul li::before {
+      content: "✔ ";
+      color: green;
+    }
+    .plan.popular {
+      border: 2px solid #003366;
+      background-color: #e8f0ff;
+    }
+    .badge {
+      background-color: #cc0000;
+      color: white;
+      font-size: 12px;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Choose Your Hosting Plan</h1>
+
+  <div class="pricing-grid">
+
+    <!-- Basic Plan -->
+    <div class="plan">
+      <h2>Basic</h2>
+      <div class="price">Rs.299 <span>/month</span></div>
+      <ul>
+        <li>1 Website</li>
+        <li>5 GB Storage</li>
+        <li>10 GB Bandwidth</li>
+        <li>Free SSL</li>
+        <li>Email Support</li>
+      </ul>
+    </div>
+
+    <!-- Standard Plan -->
+    <div class="plan popular">
+      <span class="badge">Most Popular</span>
+      <h2>Standard</h2>
+      <div class="price">Rs.599 <span>/month</span></div>
+      <ul>
+        <li>5 Websites</li>
+        <li>20 GB Storage</li>
+        <li>Unlimited Bandwidth</li>
+        <li>Free SSL + Domain</li>
+        <li>Priority Support</li>
+      </ul>
+    </div>
+
+    <!-- Premium Plan -->
+    <div class="plan">
+      <h2>Premium</h2>
+      <div class="price">Rs.999 <span>/month</span></div>
+      <ul>
+        <li>Unlimited Websites</li>
+        <li>100 GB Storage</li>
+        <li>Unlimited Bandwidth</li>
+        <li>Free SSL + Domain</li>
+        <li>24/7 Support</li>
+      </ul>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+
+
+<!-- Q14. CSS Hover Effects on Buttons -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Button Hover Effects</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+      gap: 30px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    /* Button 1: Changes color on hover */
+    .btn1 {
+      padding: 14px 35px;
+      font-size: 16px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.4s;
+    }
+    .btn1:hover {
+      background-color: #cc0000;
+    }
+
+    /* Button 2: Increases in size on hover */
+    .btn2 {
+      padding: 14px 35px;
+      font-size: 16px;
+      background-color: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .btn2:hover {
+      transform: scale(1.2);
+    }
+
+    /* Button 3: Underline effect on hover */
+    .btn3 {
+      padding: 14px 35px;
+      font-size: 16px;
+      background-color: transparent;
+      color: #003366;
+      border: 2px solid #003366;
+      cursor: pointer;
+      text-decoration: none;
+      transition: text-decoration 0.3s, color 0.3s;
+    }
+    .btn3:hover {
+      text-decoration: underline;
+      color: #cc0000;
+      border-color: #cc0000;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Button Hover Effects</h1>
+
+  <button class="btn1">Button 1 - Color Change on Hover</button>
+
+  <button class="btn2">Button 2 - Scale Up on Hover</button>
+
+  <button class="btn3">Button 3 - Underline Effect on Hover</button>
+
+</body>
+</html>
+
+
+
+<!-- Q15. Multi-Page Website with Navigation -->
+<!-- NOTE: This is a 3-page website. Save as 3 separate files: -->
+<!--   index.html (Home), services.html (Services), contact.html (Contact) -->
+<!-- All 3 pages share the same navbar. Active page is highlighted. -->
+
+<!-- ===================== -->
+<!-- PAGE 1: index.html    -->
+<!-- ===================== -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home - MyWebsite</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; }
+    nav {
+      background-color: #003366;
+      display: flex;
+      padding: 0;
+    }
+    nav a {
+      display: block;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    nav a:hover { background-color: #001f4d; }
+    nav a.active { background-color: #cc0000; }
+    .content { padding: 40px 60px; }
+    h1 { color: #003366; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="content">
+    <h1>Welcome to MyWebsite</h1>
+    <p>This is the home page. We provide top-quality web solutions for your business.</p>
+  </div>
+</body>
+</html>
+
+
+<!-- ========================= -->
+<!-- PAGE 2: services.html     -->
+<!-- ========================= -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Services - MyWebsite</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; }
+    nav {
+      background-color: #003366;
+      display: flex;
+      padding: 0;
+    }
+    nav a {
+      display: block;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    nav a:hover { background-color: #001f4d; }
+    nav a.active { background-color: #cc0000; }
+    .content { padding: 40px 60px; }
+    h1 { color: #003366; }
+    ul li { margin: 10px 0; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="content">
+    <h1>Our Services</h1>
+    <ul>
+      <li>Web Development</li>
+      <li>Mobile App Development</li>
+      <li>SEO & Digital Marketing</li>
+      <li>Cloud Hosting Solutions</li>
+    </ul>
+  </div>
+</body>
+</html>
+
+
+<!-- ======================== -->
+<!-- PAGE 3: contact.html     -->
+<!-- ======================== -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Contact - MyWebsite</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; }
+    nav {
+      background-color: #003366;
+      display: flex;
+      padding: 0;
+    }
+    nav a {
+      display: block;
+      padding: 15px 25px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    nav a:hover { background-color: #001f4d; }
+    nav a.active { background-color: #cc0000; }
+    .content { padding: 40px 60px; }
+    h1 { color: #003366; }
+    p { font-size: 16px; margin: 8px 0; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html" class="active">Contact</a>
+  </nav>
+  <div class="content">
+    <h1>Contact Us</h1>
+    <p>Email: info@mywebsite.com</p>
+    <p>Phone: +91-9876543210</p>
+    <p>Address: 123, Tech Park, Pune, Maharashtra - 411001</p>
+  </div>
+</body>
+</html>

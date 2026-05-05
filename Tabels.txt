@@ -1,0 +1,611 @@
+﻿WDL Question Paper – Set 1  |  Simplified HTML Answers
+
+Q1 – Nested Unordered List
+Coffee / Tea → Black Tea, Green Tea / Milk
+
+• Coffee
+• Tea 
+
+◦ Black Tea
+◦ Green Tea
+
+• Milk
+
+<!DOCTYPE html>
+<html>
+<body>
+  <ul>
+    <li>Coffee</li>
+    <li>Tea
+      <ul>
+        <li>Black Tea</li>
+        <li>Green Tea</li>
+      </ul>
+    </li>
+    <li>Milk</li>
+  </ul>
+</body>
+</html>
+
+
+
+Q2 –  Mahima--> Sri-->Shivika (Rowspan \& Colspan)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table</title>
+</head>
+<body>
+
+<div style="width:70%; margin:auto; border:3px solid black; padding:5px;">
+
+<table border="1" cellpadding="10" cellspacing="0" width="100%" style="text-align:center;">
+
+    <tr>
+        <th colspan="2">Name</th>
+        <th>Class</th>
+        <th>School</th>
+    </tr>
+
+    <tr>
+        <td rowspan="2">Mahima</td>
+        <td rowspan="2">Gupta</td>
+        <td>11</td>
+        <td rowspan="2">MVM School</td>
+    </tr>
+    <tr>
+        <td>A</td>
+    </tr>
+
+    <tr>
+        <td rowspan="2">Sri</td>
+        <td rowspan="2">Krishn</td>
+        <td>3</td>
+        <td rowspan="2">LMS School</td>
+    </tr>
+    <tr>
+        <td>B</td>
+    </tr>
+
+    <tr>
+        <td rowspan="2">Shivika</td>
+        <td rowspan="2">Goyal</td>
+        <td>5</td>
+        <td rowspan="2">SCPM School</td>
+    </tr>
+    <tr>
+        <td>A</td>
+    </tr>
+
+</table>
+
+</div>
+
+</body>
+</html>
+
+Q3 – Frames Layout (Top / Left / Right)
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Frame Layout</title>
+</head>
+<body>
+
+<div style="width:400px; border:2px solid black;">
+
+    <!-- Top Frame -->
+    <div style="background:red; color:white; text-align:center;
+    padding:10px; font-weight:bold;">
+        Top Frame
+    </div>
+
+    <!-- Bottom Section -->
+    <div style="display:flex;">
+
+        <!-- Left Frame -->
+        <div style="background:orange; color:white; flex:1;
+        text-align:center; padding:50px;">
+            Left Frame
+        </div>
+
+        <!-- Right Frame -->
+        <div style="background:orange; color:white; flex:1;
+        text-align:center; padding:50px; border-left:2px solid black;">
+            Right Frame
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
+Q4 – Colored Frames (Orange / Blue / Red / Green)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Colored Layout</title>
+</head>
+<body>
+
+<div style="display:flex; width:600px; height:300px; border:2px solid black;">
+
+    <!-- Left Side (Orange + Blue) -->
+    <div style="flex:1; display:flex; flex-direction:column;">
+
+        <div style="background:orange; flex:1;
+        display:flex; align-items:center; justify-content:center;
+        color:white; font-weight:bold;">
+            ORANGE
+        </div>
+
+        <div style="background:blue; flex:1;
+        display:flex; align-items:center; justify-content:center;
+        color:white; font-weight:bold;">
+            BLUE
+        </div>
+
+    </div>
+
+    <!-- Middle (Red Full Height) -->
+    <div style="background:red; flex:1;
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-weight:bold;">
+        RED
+    </div>
+
+    <!-- Right (Green Full Height) -->
+    <div style="background:green; flex:1;
+    display:flex; align-items:center; justify-content:center;
+    color:white; font-weight:bold;">
+        GREEN
+    </div>
+
+</div>
+
+</body>
+</html>
+
+Q5 – Time Table (Rowspan & Colspan)
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table { border-collapse: collapse; border: 3px solid green; }
+    td, th { border: 2px solid green; padding: 6px 10px;
+             background: yellow; text-align: center; }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <td colspan="7" style="background:pink; font-size:18px;">
+        <b>Time Table</b>
+      </td>
+    </tr>
+    <tr style="background:pink;">
+      <td></td>
+      <td>Mon</td><td>Tue</td><td>wed</td>
+      <td>Thur</td><td>Fri</td><td>Sat</td>
+    </tr>
+    <tr>
+      <td rowspan="5" style="background:green; color:white;"><b>Hours</b></td>
+      <td rowspan="2">DBMS</td>
+      <td>WT</td><td>OOAD</td><td>JP</td><td>OR</td><td>COA</td>
+    </tr>
+    <tr>
+      <td>OR</td><td>WT</td><td>COA</td><td>OOAD</td><td>JP</td>
+    </tr>
+    <tr>
+      <td colspan="6" style="background:pink;"><b>LUNCH BREAK</b></td>
+    </tr>
+    <tr>
+      <td>DBMS</td><td>WT</td><td>OOAD</td><td>JP</td><td>OR</td><td>COA</td>
+
+
+
+    </tr>
+    <tr>
+      <td>DBMS</td><td>OR</td><td>WT</td><td>COA</td><td>OOAD</td><td>JP</td>
+    </tr>
+  </table>
+</body>
+</html>
+
+
+
+Q6 – 6-Frame Layout
+Row 1: Name/address  |  Row 2: Qualifications + Links  |  Row 3: Scroll + Blink + Image
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Six Frame Layout</title>
+</head>
+<body>
+
+<div style="width:700px; border:2px solid black; padding:10px;
+display:flex; flex-direction:column; gap:10px; font-family:Arial;">
+
+    <!-- First Frame -->
+    <div style="background:#ff8c00; color:white; padding:15px; font-weight:bold;">
+        First Frame: Name and address
+        <p>John Doe, 123 Main Street, Mumbai - 400001</p>
+    </div>
+
+    <!-- Row 2 -->
+    <div style="display:flex; gap:10px;">
+
+        <div style="flex:1; background:#e6b899; padding:15px;">
+            <b>Second frame</b><br><br>
+            Bulleted list of qualifications
+            <ul>
+                <li>B.Sc</li>
+                <li>M.Sc</li>
+                <li>Diploma</li>
+            </ul>
+        </div>
+
+        <div style="flex:1; background:#e6b899; padding:15px;">
+            <b>Third frame</b><br><br>
+            Links to favourite sites
+            <ul>
+                <li><a href="#">Google</a></li>
+                <li><a href="#">YouTube</a></li>
+                <li><a href="#">GitHub</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Row 3 -->
+    <div style="display:flex; gap:10px;">
+
+        <div style="flex:1; background:#e6b899; padding:15px;">
+            <b>Fourth frame</b><br><br>
+            Scrolling message
+            <marquee>Welcome to my page</marquee>
+        </div>
+
+        <div style="flex:1; background:#e6b899; padding:15px;">
+            <b>Fifth frame</b><br><br>
+            Blinking reminders
+            <p style="color:red; font-weight:bold;">Meeting at 3 PM</p>
+        </div>
+
+        <div style="flex:1; background:#e6b899; padding:15px; text-align:center;">
+            <b>Sixth frame</b><br><br>
+            Image<br><br>
+            <img src="photo.jpg" width="100">
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
+
+Q7 – Nested List: Maharashtra → Pune/Mumbai → Roman numbered places
+
+<!DOCTYPE html>
+<html>
+<body>
+  <ul>
+    <li>Maharashtra
+      <ul style="list-style-type: circle;">
+        <li>Pune
+          <ol type="I">
+            <li>Dighi</li>
+            <li>Moshi</li>
+            <li>Shivajinagar</li>
+          </ol>
+        </li>
+        <li>Mumbai
+          <ol type="I">
+            <li>Santakruiz</li>
+            <li>Vikroli</li>
+            <li>Mumbra</li>
+          </ol>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</body>
+</html>
+
+
+
+Q8 – Country Population Table
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table { border-collapse: collapse; }
+    td, th { border: 1px solid black; padding: 6px 14px; text-align: center; }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <th>Country</th>
+      <th colspan="2">Population (In Crores)</th>
+    </tr>
+    <tr>
+      <td rowspan="3">INDIA</td>
+      <td>1998</td><td>85</td>
+    </tr>
+    <tr><td>1999</td><td>90</td></tr>
+    <tr><td>2000</td><td>100</td></tr>
+    <tr>
+      <td rowspan="3">USA</td>
+      <td>1998</td><td>30</td>
+    </tr>
+    <tr><td>1999</td><td>35</td></tr>
+    <tr><td>2000</td><td>40</td></tr>
+
+
+
+    <tr>
+      <td rowspan="3">UK</td>
+      <td>1998</td><td>25</td>
+    </tr>
+    <tr><td>1999</td><td>30</td></tr>
+    <tr><td>2000</td><td>35</td></tr>
+  </table>
+</body>
+</html>
+
+
+
+Q9 – File Upload Form with Checkboxes
+
+Write a HTML code to generate following output.
+
+Enter Name of your friend
+Choose the file you want to post to your friend
+
+Browse...
+
+What does the file contain?
+☑ Image   ☑ Source code   ☐ Binary code
+
+You have Completed the Form . Submit Query
+
+<!DOCTYPE html>
+<html>
+<body>
+  <form>
+    <table>
+      <tr>
+        <td>Enter Name of your friend</td>
+        <td><input type="text" name="friendname" size="30"></td>
+      </tr>
+      <tr>
+        <td colspan="2">Choose the file you want to post to your friend</td>
+      </tr>
+      <tr>
+        <td colspan="2"><input type="file" name="uploadfile"></td>
+      </tr>
+      <tr>
+        <td colspan="2">What does the file contain?</td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="checkbox" name="type" value="image" checked> Image
+          <input type="checkbox" name="type" value="source" checked> Source code
+          <input type="checkbox" name="type" value="binary"> Binary code
+        </td>
+      </tr>
+      <tr>
+        <td>You have Completed the Form.</td>
+        <td><input type="submit" value="Submit Query"></td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>
+
+
+
+Q10 – Nested List: Maharashtra/Mumbai (lower-roman)
+<!DOCTYPE html>
+<html>
+<body>
+
+<ul style="list-style-type:circle; font-family:Arial; font-weight:bold;">
+
+    <li>Maharashtra
+        <ol type="i" style="margin-top:5px;">
+            <li>Pune</li>
+            <li>Dighi</li>
+            <li>Moshi</li>
+            <li>Shivajinagar</li>
+        </ol>
+    </li>
+
+    <br>
+
+    <li>Mumbai
+        <ol type="i" style="margin-top:5px;">
+            <li>Santacruz</li>
+            <li>Vikroli</li>
+            <li>Mumbra</li>
+        </ol>
+    </li>
+
+</ul>
+
+</body>
+</html>
+
+
+
+Q11 – Bullet List: 1, 2 (with 2.1, 2.2), 3
+
+<!DOCTYPE html>
+<html>
+<body>
+  <ul>
+    <li>1</li>
+    <li>2
+      <ul style="list-style-type: circle;">
+        <li>2.1</li>
+        <li>2.2</li>
+      </ul>
+    </li>
+    <li>3</li>
+  </ul>
+</body>
+</html>
+
+
+
+Q12 – Nested List: Milk (A/B/C) and Coffee (a/b)
+
+Create following output.
+• Milk
+
+1. Paneer
+2. Ghee
+3. Ice Cream
+
+• Coffee
+1. Hot Coffee
+2. Cold Coffee
+
+<!DOCTYPE html>
+<html>
+<body>
+  <ul>
+    <li>Milk
+      <ol type="A">
+        <li>Paneer</li>
+        <li>Ghee</li>
+        <li>Ice Cream</li>
+      </ol>
+    </li>
+    <li>Coffee
+      <ol type="a">
+        <li>Hot Coffee</li>
+        <li>Cold Coffee</li>
+      </ol>
+    </li>
+  </ul>
+</body>
+</html>
+
+
+
+Q13 – Table: Rowspan & Colspan (Row 1 Cell 1 spans 2 rows; Row 3 spans all cols)
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<div style="width:600px; margin:auto; border:3px black; padding:5px;">
+
+<table border="1" cellpadding="10" cellspacing="5" width="100%" style="text-align:center;">
+
+    <tr>
+        <th style="font-weight:normal;">Column 1</th>
+        <th style="font-weight:normal;">Column 2</th>
+        <th style="font-weight:normal;">Column 3</th>
+    </tr>
+
+    <tr>
+        <td rowspan="2">Row 1 Cell 1</td>
+        <td>Row 1 Cell 2</td>
+        <td>Row 1 Cell 3</td>
+    </tr>
+
+    <tr>
+        <td>Row 2 Cell 2</td>
+        <td>Row 2 Cell 3</td>
+    </tr>
+
+    <tr>
+        <td colspan="3" align="left">Row 3 Cell 1</td>
+    </tr>
+
+</table>
+
+</div>
+
+</body>
+</html>
+
+Q14 – Sports Statistics Table (Team A/B)
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table { border-collapse: collapse; }
+    td, th { border: 1px solid black; padding: 8px 14px; text-align: center; }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <th>Team</th>
+      <th>Player</th>
+      <th colspan="2">Statistics</th>
+    </tr>
+    <tr>
+      <td rowspan="2">Team A</td>
+      <td>Player 1</td><td>Goals: 4</td><td>Assists: 7</td>
+    </tr>
+    <tr>
+      <td>Player 2</td><td>Goals: 6</td><td>Assists: 5</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Team B</td>
+      <td>Player 3</td><td>Goals: 5</td><td>Assists: 6</td>
+    </tr>
+    <tr>
+      <td>Player 4</td><td>Goals: 3</td><td>Assists: 8</td>
+    </tr>
+  </table>
+</body>
+</html>
+
+Q15 – Test Table with Merged Cells (Average / Red eyes)
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    table { border-collapse: collapse; }
+    td, th { border: 1px solid black; padding: 6px 14px; text-align: center; }
+    caption { font-style: italic; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <td rowspan="2"></td>
+      <th colspan="2">Average</th>
+      <td rowspan="2"><b>Red<br>eyes</b></td>
+    </tr>
+    <tr>
+      <th>height</th>
+      <th>weight</th>
+    </tr>
+    <tr>
+      <th>Males</th>
+      <td>1.9</td><td>0.003</td><td>40%</td>
+    </tr>
+    <tr>
+      <th>Females</th>
+      <td>1.7</td><td>0.002</td><td>43%</td>
+    </tr>
+  </table>
+</body>
+</html>
